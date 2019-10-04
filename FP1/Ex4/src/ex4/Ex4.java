@@ -6,7 +6,9 @@
 package ex4;
 
 import static ex4.Ex4.printCollection;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  *
@@ -24,7 +26,7 @@ public class Ex4 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Collection<String> c;
+        List<?> c = new ArrayList<String>();
         // TODO code application logic here
         printCollection(c);
     }

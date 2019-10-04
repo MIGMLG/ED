@@ -26,6 +26,8 @@ public class Ex3 {
             System.out.println(p2.getFirst() + " and "
                     + p2.getSecond());
         }
+        
+        System.out.println("Igual: " + p1.compare());
     }
 
 }

@@ -22,6 +22,18 @@ public class UnorderedPair<T extends Comparable> extends Pair<T> {
         setSecond(secondItem);
     }
 
+    public T getFirstItem() {
+        return super.getFirst();
+    }
+
+    public T getSecondItem() {
+        return super.getSecond();
+    }
+
+    public boolean compare() {
+            return super.getFirst().equals(super.getSecond());
+    }
+
     public boolean equals(Object otherObject) {
         if (otherObject == null) {
             return false;

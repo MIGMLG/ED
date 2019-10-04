@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ex2;
+package ex3;
 
 /**
  *
@@ -14,6 +14,9 @@ public class Pair<T extends Comparable> {
     private T first;
     private T second;
 
+    public Pair() {
+    }
+    
     public Pair(T first, T second) {
         this.first = first;
         this.second = second;

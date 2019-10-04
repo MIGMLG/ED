@@ -7,6 +7,7 @@ package ex4.part2;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -26,9 +27,18 @@ public class Ex4Part2 {
         tmp.add("GoodBye");
         tmp.add("Earth");
         System.out.println(tmp);
-        ComparatorString test = new ComparatorString();
-        Collections.sort(tmp, test);
+
+        //Classe Anonima
+        Collections.sort(tmp, new Comparator<String>() {
+
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.length() - o2.length();
+            }
+        }
+                
+        );
         System.out.println(tmp);
     }
-    
+
 }

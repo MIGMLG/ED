@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Demo classe para testes
  * @author NERD-X
  */
 public class Ex5Part2 {

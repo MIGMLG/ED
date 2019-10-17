@@ -74,12 +74,12 @@ public class Calculadora {
         if(expression.length() < 5 || expression == null){ //_Verificar se a string tem pelo menos 3 elementos ou que não é null
             throw new WrongExpressionException(WrongExpressionException.WRONGEXCEPTION);
         } else {
-
-            int lastSpace = 0;
+            //expression = expression + " "; //Adicionar ultimo espaço á expressão
+            int lastPositionWithoutSpace = 0;
             stack = new ArrayStack<Integer>();
             for(int i = 0; i < expression.length(); i++){
                 if(expression.charAt(i)== ' '){ //Procurar espaço branco
-                    String tmp = expression.substring(lastSpace, i); //criar subString
+                    String tmp = expression.substring(lastPositionWithoutSpace, i); //criar subString
                     boolean resultStringToInt = stringToInt(tmp); //Tentar converter para int
                     if(resultStringToInt == false){ // Se não for int
                         if(stack.size() < 2){ // E se não existir pelo menos dois elementos na stack
@@ -89,11 +89,11 @@ public class Calculadora {
                             if(resultMakeOperation == false){
                                 throw new WrongExpressionException(WrongExpressionException.WRONGEXCEPTION);
                             }else{
-                                lastSpace = i + 1;
+                                lastPositionWithoutSpace = i + 1; //guardar a ultima posição a seguir ao espaço
                             }
                         }
                     }else{
-                        lastSpace = i + 1;
+                        lastPositionWithoutSpace = i + 1; //guardar a ultima posição a seguir ao espaço
                     }
                 }
             }

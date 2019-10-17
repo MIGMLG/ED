@@ -30,7 +30,7 @@ public class ArrayStack<T> implements StackADT<T> {
     @Override
     public void push(T element) {
         if(stack.length == top){
-            stackResize();
+            myStackResize();
             stack[top] = element;
             top++;
         }else{
@@ -86,5 +86,13 @@ public class ArrayStack<T> implements StackADT<T> {
 
     private void stackResize(){
         stack = Arrays.copyOf(stack , stack.length + DEFAULT_CAPACITY);
+    }
+
+    private void myStackResize(){
+        T[] tmp = (T[])(new Object[stack.length + DEFAULT_CAPACITY]);
+        for(int i = 0; i < stack.length; i++){
+             tmp[i] = stack[i];
+        }
+        stack = tmp;
     }
 }

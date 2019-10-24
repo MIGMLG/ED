@@ -15,46 +15,33 @@ public class CircularArrayQueue<T> implements QueueADT<T>{
 
     @Override
     public void enqueue(T element) {
-        if(size() == queue.length){
+        if (size() == queue.length) {
             myQueueResize();
-            front = 0;
-            rear = size();
-            queue[rear] = element;
-            rear = (rear +1) % queue.length;
-            size++;
-        }else{
-            queue[rear] = element;
-            rear = (rear +1) % queue.length;
-            size++;
         }
-
+        queue[rear] = element;
+        rear = (rear +1) % queue.length;
+        size++;
     }
 
     @Override
     public T dequeue() {
-        if(size() == 0){
+        if (size() == 0) {
             return null;
-        }else if ( size() == 1){
-            T tmp = queue[front];
-            front = rear = 0;
-            size--;
-            return tmp;
-        } else {
-            T tmp = queue[front];
-            queue[front] = null;
-            front = (front + 1) % queue.length;
-            size--;
-            return tmp;
         }
+
+        T tmp = queue[front];
+        front = (front + 1) % queue.length;
+        size--;
+        return tmp;
+
     }
 
     @Override
     public T first() {
-        if(size() == 0){
+        if (size() == 0) {
             return null;
-        }else {
-            return queue[front];
         }
+        return queue[front];
     }
 
     @Override
@@ -80,9 +67,15 @@ public class CircularArrayQueue<T> implements QueueADT<T>{
 
     private void myQueueResize(){
         T[] tmp = (T[])(new Object[queue.length + DEFAULT_CAPACITY]);
-        for(int i = 0; i < queue.length; i++){
-            tmp[i] = queue[i];
+        int tmpFront = front;
+
+        for (int i = 0; i < queue.length; i++) {
+            tmp[i] = queue[tmpFront];
+            tmpFront = (tmpFront + 1) % queue.length;
         }
+        front = 0;
+        rear = size();
+
         queue = tmp;
     }
 

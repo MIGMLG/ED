@@ -7,7 +7,7 @@ public class demo {
     public static void main(String[] args) {
 
         CircularArrayQueue<String> tmp = new CircularArrayQueue<>();
-        int test = 6;
+        int test = 7;
 
         switch (test){
             // Teste para o enqueue
@@ -43,18 +43,37 @@ public class demo {
                 tmp.enqueue("Hello World!");
                 tmp.enqueue("GoodBye World!");
                 tmp.enqueue("Who is Joe ?");
-                tmp.enqueue("Hello World!");
-                tmp.enqueue("GoodBye World!");
-                tmp.enqueue("Who is Joe ?");
-                tmp.enqueue("Hello World!");
-                tmp.enqueue("GoodBye World!");
-                tmp.enqueue("Who is Joe ?");
-                tmp.enqueue("Hello World!");
-                tmp.enqueue("GoodBye World!");
-                tmp.enqueue("Who is Joe ?");
+                tmp.enqueue("Hello World!1");
+                tmp.enqueue("GoodBye World!1");
+                tmp.enqueue("Who is Joe ?1");
+                tmp.enqueue("Hello World!2");
+                tmp.enqueue("GoodBye World!2");
+                tmp.enqueue("Who is Joe ?2");
+                tmp.enqueue("Hello World!3");
+                tmp.enqueue("GoodBye World!3");
+                tmp.enqueue("Who is Joe ?3");
                 System.out.println(tmp.size());
+                System.out.println(tmp.toString());
+                break;
+            case 8 : // Teste dequeue after expand
+                tmp.enqueue("Hello World!");
+                tmp.enqueue("GoodBye World!");
+                tmp.enqueue("Who is Joe ?");
+                tmp.enqueue("Hello World!");
+                tmp.enqueue("GoodBye World!");
+                tmp.enqueue("Who is Joe ?");
+                tmp.enqueue("Hello World!");
+                tmp.enqueue("GoodBye World!");
+                tmp.enqueue("Who is Joe ?");
+                tmp.enqueue("Hello World!");
+                tmp.enqueue("GoodBye World!");
+                tmp.enqueue("Who is Joe ?");
+                System.out.printf("Return Hello Wolrd. Resultado : " + tmp.dequeue());
+                System.out.println("\n" + tmp.toString());
                 break;
             default: break;
+
+
         }
 
 

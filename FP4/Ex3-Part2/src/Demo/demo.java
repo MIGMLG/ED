@@ -1,12 +1,13 @@
 package Demo;
 
-import Queue.LinkedQueue;
+import Queue.LinkedSortedQueue;
+import Queue.LinkedSortedQueue;
 
 public class demo {
 
     public static void main(String[] args) {
 
-        LinkedQueue<Integer> tmp = new LinkedQueue<>();
+        LinkedSortedQueue<Integer> tmp = new LinkedSortedQueue<>();
         int test = 1;
 
         switch (test) {

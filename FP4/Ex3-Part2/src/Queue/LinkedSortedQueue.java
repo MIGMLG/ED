@@ -1,12 +1,12 @@
 package Queue;
 
-public class LinkedQueue<T extends Comparable> implements QueueADT<T> {
+public class LinkedSortedQueue<T extends Comparable> implements QueueADT<T> {
 
     private LinearNode<T> front;
     private LinearNode<T> rear;
     private int size = 0;
 
-    public LinkedQueue() {
+    public LinkedSortedQueue() {
         front = null;
         rear = null;
     }

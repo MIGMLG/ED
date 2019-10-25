@@ -13,46 +13,46 @@ public class LinkedQueue<T> implements QueueADT<T> {
 
     @Override
     public void enqueue(T element) {
-        if(size() == 0){
+        if (size() == 0) {
             front = new LinearNode<>(element, null);
             rear = front;
-        }else {
+        } else {
             rear.setNext(new LinearNode<>(element, null));
             rear = rear.getNext();
         }
-        size++;
 
+        size++;
     }
 
     @Override
     public T dequeue() {
-        if(size()==0){
-            return null;
-        }else if (size()==1){
-            T tmp = front.getData();
+        T tmp = null;
+
+        if (size() == 1) {
+            tmp = front.getData();
             front = rear = null;
             size--;
-            return tmp;
-        }else {
-            T tmp = front.getData();
+        } else if (size() != 0){
+            tmp = front.getData();
             front = front.getNext();
             size--;
-            return tmp;
         }
+
+        return tmp;
     }
 
     @Override
     public T first() {
-        if(size() == 0){
+        if (size() == 0) {
             return null;
-        }else {
-            return front.getData();
         }
+        return front.getData();
+
     }
 
     @Override
     public boolean isEmpty() {
-        return (size() ==0);
+        return (size() == 0);
     }
 
     @Override
@@ -61,13 +61,15 @@ public class LinkedQueue<T> implements QueueADT<T> {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         LinearNode<T> current = front;
         String text = "";
-        while(current!=null){
-            text += "\n" + current.toString() ;
-            current= current.getNext();
+
+        while (current != null) {
+            text += "\n" + current.toString();
+            current = current.getNext();
         }
+
         return text;
     }
 }

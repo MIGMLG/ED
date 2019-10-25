@@ -30,7 +30,7 @@ public class demo {
             case 5 : // Teste para dequeue 1 elemento
                 tmp.enqueue("Hello World!");
                 System.out.println("Return Hello World! Resultado : " + tmp.dequeue());
-                System.out.println(tmp.toString());
+                System.out.println("Não deve mostar nada. Resultado : " + tmp.toString());
                 break;
             case 6 : // Teste para dequeue 3 elementos
                 tmp.enqueue("Hello World!");

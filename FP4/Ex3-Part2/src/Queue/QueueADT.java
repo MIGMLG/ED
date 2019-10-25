@@ -46,6 +46,7 @@ public interface QueueADT<T> {
      *
      * @return the string representation of this queue
      */
+    @Override
     public String toString();
 
 }

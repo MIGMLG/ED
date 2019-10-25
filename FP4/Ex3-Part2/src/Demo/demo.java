@@ -1,14 +1,12 @@
 package Demo;
 
 import Queue.LinkedSortedQueue;
-import Queue.LinkedSortedQueue;
+import Queue.SortedQueueJoiner;
 
 public class demo {
 
-    public static void main(String[] args) {
-
+    public static void tests( int test){
         LinkedSortedQueue<Integer> tmp = new LinkedSortedQueue<>();
-        int test = 1;
 
         switch (test) {
             // Teste para o enqueue
@@ -46,6 +44,26 @@ public class demo {
             default:
                 break;
         }
+    }
+
+    public static void main(String[] args) {
+
+        LinkedSortedQueue<Integer> first = new LinkedSortedQueue<>();
+        LinkedSortedQueue<Integer> second = new LinkedSortedQueue<>();
+
+        first.enqueue(6);
+        first.enqueue(5);
+        first.enqueue(4);
+
+        second.enqueue(3);
+        second.enqueue(2);
+        second.enqueue(1);
+
+        SortedQueueJoiner<Integer> result = new SortedQueueJoiner<>(first, second);
+
+        System.out.println(result.returnFinalQueue());
+
+        //demo.tests(1);
     }
 
 }

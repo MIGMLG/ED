@@ -39,6 +39,8 @@ public class CifraCesar {
 
                     tmpString += tmpChar;
                     queue.enqueue(numberKey);
+                } else {
+                    tmpString += " ";
                 }
             }
 

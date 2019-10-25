@@ -39,6 +39,8 @@ public class Cifra {
 
                     tmpString += tmpChar;
                     queue.enqueue(numberKey);
+                } else {
+                    tmpString += " ";
                 }
             }
 

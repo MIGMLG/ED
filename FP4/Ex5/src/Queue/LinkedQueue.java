@@ -20,35 +20,34 @@ public class LinkedQueue<T> implements QueueADT<T> {
             rear.setNext(new LinearNode<>(element, null));
             rear = rear.getNext();
         }
-        size++;
 
+        size++;
     }
 
     @Override
     public T dequeue() {
-        if (size() == 0) {
-            return null;
-        } else if (size() == 1) {
-            T tmp = front.getData();
+        T tmp = null;
+
+        if (size() == 1) {
+            tmp = front.getData();
             front = rear = null;
             size--;
-            return tmp;
-        } else {
-            T tmp = front.getData();
+        } else if (size() != 0){
+            tmp = front.getData();
             front = front.getNext();
             size--;
-            return tmp;
         }
+
+        return tmp;
     }
 
     @Override
     public T first() {
-
         if (size() == 0) {
             return null;
-        } else {
-            return front.getData();
         }
+        return front.getData();
+
     }
 
     @Override

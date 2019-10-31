@@ -18,9 +18,9 @@ public class ArrayList<T> implements ListADT<T> {
 
         @Override
         public T next() {
-            if(this.hasNext()){
-                T tmp = (T) list [current];
-                current ++;
+            if (this.hasNext()) {
+                T tmp = (T) list[current];
+                current++;
                 return tmp;
             }
             throw new ArrayIndexOutOfBoundsException();

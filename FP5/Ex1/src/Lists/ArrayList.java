@@ -82,20 +82,21 @@ public class ArrayList<T> implements ListADT<T> {
         int position = search(element);
 
         if (position != -1) {
-            size--;
-            rear--;
-
             if (position == 0) {
                 return removeFirst();
             } else if (position == rear - 1) {
                 return removeLast();
             }
 
+            size--;
+            rear--;
+
             T tmp = list[position];
 
             for (int i = position; i < size(); i++) {
                 list[i] = list[i + 1];
             }
+
             return tmp;
         }
         return null;

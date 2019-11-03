@@ -31,6 +31,7 @@ public class OrderedArrayList<T> extends ArrayList<T> implements OrderedListADT<
             }
             rear++;
             size++;
+            modCount++;
         } else {
             System.out.println("Objecto não é instancia de Comparable.");
         }

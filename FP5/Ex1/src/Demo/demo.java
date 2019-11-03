@@ -34,7 +34,7 @@ public class demo {
                 break;
             case 5: // Teste para remover 1 elemento
                 tmp.add(1);
-                System.out.println("Return Hello World! Resultado : " + tmp.remove(1));
+                System.out.println("Return 1. Resultado : " + tmp.remove(1));
                 System.out.println(tmp.toString());
                 break;
             case 6: // Teste para remover com 3 elementos

@@ -1,5 +1,6 @@
 package Lists;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 public class ArrayList<T> implements ListADT<T> {
@@ -7,13 +8,17 @@ public class ArrayList<T> implements ListADT<T> {
     private class ArrayListIterator<T> implements Iterator<T> {
 
         private int current = 0;
+        private int expectedModCount = modCount;
 
         @Override
         public boolean hasNext() {
-            if (current < size) {
-                return true;
+            if (expectedModCount == modCount) {
+                if (current < size) {
+                    return true;
+                }
+                return false;
             }
-            return false;
+            throw new ConcurrentModificationException();
         }
 
         @Override
@@ -31,17 +36,20 @@ public class ArrayList<T> implements ListADT<T> {
     private final int DEFAULT_CAPACITY = 10;
     protected int size;
     protected int rear;
+    protected int modCount;
 
     public ArrayList() {
         list = (T[]) (new Object[DEFAULT_CAPACITY]);
         size = 0;
         rear = 0;
+        modCount = 0;
     }
 
     public ArrayList(int capacity) {
         list = (T[]) (new Object[capacity]);
         size = 0;
         rear = 0;
+        modCount = 0;
     }
 
     @Override
@@ -60,6 +68,7 @@ public class ArrayList<T> implements ListADT<T> {
             list[i] = list[i + 1];
         }
 
+        modCount++;
         return tmp;
     }
 
@@ -73,6 +82,7 @@ public class ArrayList<T> implements ListADT<T> {
 
         size--;
         rear--;
+        modCount++;
 
         return tmp;
     }
@@ -97,6 +107,7 @@ public class ArrayList<T> implements ListADT<T> {
                 list[i] = list[i + 1];
             }
 
+            modCount++;
             return tmp;
         }
         return null;

@@ -91,7 +91,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
         DoubleNode<T> current = search(element);
 
         if (current != null) {
-            if (size() == 1) {
+            if (current == head || size() == 1) {
                 removeFirst();
             } else if (current == tail) {
                 removeLast();

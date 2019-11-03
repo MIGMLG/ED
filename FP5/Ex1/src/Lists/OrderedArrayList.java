@@ -1,9 +1,5 @@
 package Lists;
 
-import java.io.InvalidObjectException;
-import java.util.Comparator;
-import java.util.Iterator;
-
 public class OrderedArrayList<T> extends ArrayList<T> implements OrderedListADT<T> {
 
     @Override

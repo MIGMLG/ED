@@ -4,6 +4,10 @@ public class UnorderedArray<T> extends ArrayList<T> implements UnorderedListADT<
 
     @Override
     public void addToFront(T element) {
+        if(rear == list.length){
+            expandCapacity();
+        }
+
         int first = 0;
         for (int i = rear - 1; i >= first; i--) {
 
@@ -18,6 +22,10 @@ public class UnorderedArray<T> extends ArrayList<T> implements UnorderedListADT<
 
     @Override
     public void addToRear(T element) {
+        if(rear == list.length){
+            expandCapacity();
+        }
+
         list[rear] = element;
         rear++;
         size++;
@@ -26,6 +34,10 @@ public class UnorderedArray<T> extends ArrayList<T> implements UnorderedListADT<
 
     @Override
     public void addAfter(T element, T target) throws ListExceptions {
+        if(rear == list.length){
+            expandCapacity();
+        }
+
         boolean found = false;
         int current = 0;
 

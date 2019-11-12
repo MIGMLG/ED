@@ -156,6 +156,19 @@ public class demo {
                 tmp.addAfter(4, 3);
                 tmp.addToFront(2);
                 System.out.println(tmp.toString());
+            case 29: //Teste Expand
+                tmp.addToFront(1);
+                tmp.addToRear(2);
+                tmp.addToRear(3);
+                tmp.addToRear(4);
+                tmp.addToRear(5);
+                tmp.addToRear(6);
+                tmp.addToRear(7);
+                tmp.addToRear(8);
+                tmp.addToRear(9);
+                tmp.addToRear(10);
+                tmp.addToRear(11);
+                System.out.println(tmp.toString());
             default:
                 break;
         }
@@ -163,7 +176,7 @@ public class demo {
 
     public static void main(String[] args) {
 
-        for(int i = 0; i <= 28 ; i++){
+        for(int i = 0; i <= 29 ; i++){
             try {
                 Tests(i);
             } catch (Exception ex) {

@@ -25,7 +25,7 @@ public class UnorderedArray<T> extends ArrayList<T> implements UnorderedListADT<
     }
 
     @Override
-    public void addAfter(T element, T target) {
+    public void addAfter(T element, T target) throws ListExceptions {
         boolean found = false;
         int current = 0;
 
@@ -46,7 +46,7 @@ public class UnorderedArray<T> extends ArrayList<T> implements UnorderedListADT<
             size++;
             modCount++;
         } else {
-            addToRear(element);
+            throw new ListExceptions(ListExceptions.ELEMENT_NOT_FOUND);
         }
 
     }

@@ -1,11 +1,12 @@
 package Demo;
 
+import Lists.ListExceptions;
 import Lists.UnorderedArray;
 import Lists.UnorderedListADT;
 
 public class demo {
 
-    public static void Tests(int test){
+    public static void Tests(int test) throws ListExceptions {
         UnorderedListADT<Integer> tmp = new UnorderedArray<Integer>();
 
         switch (test) {
@@ -141,7 +142,7 @@ public class demo {
             case 26: // Teste para size com 0 elementos
                 System.out.println("Deve ser 0. Resultado : " + tmp.size());
                 break;
-            case 27: // Teste para o add
+            case 27: // Teste para o adds combinados
                 tmp.addToFront(3);
                 tmp.addToFront(2);
                 tmp.addToFront(1);
@@ -150,6 +151,11 @@ public class demo {
                 tmp.addAfter(4, 3);
                 System.out.println(tmp.toString());
                 break;
+            case 28: //Teste para addAfter
+                tmp.addToRear(3);
+                tmp.addAfter(4, 3);
+                tmp.addToFront(2);
+                System.out.println(tmp.toString());
             default:
                 break;
         }
@@ -157,8 +163,12 @@ public class demo {
 
     public static void main(String[] args) {
 
-        for(int i = 0; i <= 27 ; i++){
-            Tests(i);
+        for(int i = 0; i <= 28 ; i++){
+            try {
+                Tests(i);
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
         }
 
     }

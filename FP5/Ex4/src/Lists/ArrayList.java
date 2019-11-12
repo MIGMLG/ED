@@ -166,6 +166,14 @@ public class ArrayList<T> implements ListADT<T> {
         return itr;
     }
 
+    protected void expandCapacity(){
+        T[] tmp = (T[])(new Object[list.length + DEFAULT_CAPACITY]);
+        for(int i = 0; i < list.length; i++){
+            tmp[i] = list[i];
+        }
+        list = tmp;
+    }
+
     @Override
     public String toString() {
         String text = "";

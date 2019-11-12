@@ -48,7 +48,6 @@ public class UnorderedArray<T> extends ArrayList<T> implements UnorderedListADT<
         } else {
             throw new ListExceptions(ListExceptions.ELEMENT_NOT_FOUND);
         }
-
     }
 
 }

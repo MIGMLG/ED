@@ -32,6 +32,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
         }
     }
 
+
     protected DoubleNode<T> head, tail;
     protected int size;
     protected int modCount;
@@ -130,6 +131,10 @@ public class DoubleLinkedList<T> implements ListADT<T> {
         return (search(target) != null);
     }
 
+    /**
+     * @param target
+     * @return
+     */
     private DoubleNode<T> search(T target) {
         if (isEmpty()) {
             return null;

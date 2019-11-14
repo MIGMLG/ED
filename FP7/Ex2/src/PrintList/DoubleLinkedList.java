@@ -178,25 +178,17 @@ public class DoubleLinkedList<T> implements ListADT<T> {
     }
 
     private String printListRecursiveUntilGetsToRear(DoubleNode<T> current) {
-        String text = "";
-
         if (current.getNext() == null) {
             return "\n" + current.toString();
         }
-        text += "\n" + current.toString() + printListRecursiveUntilGetsToRear(current.getNext());
-        return text;
-
+        return "\n" + current.toString() + printListRecursiveUntilGetsToRear(current.getNext());
     }
 
     private String printListRecursiveUntilGetsToFront(DoubleNode<T> current) {
-        String text = "";
-
         if (current.getPrevious() == null) {
             return "\n" + current.toString();
         }
-        text += "\n" + current.toString() + printListRecursiveUntilGetsToFront(current.getPrevious());
-        return text;
-
+        return "\n" + current.toString() + printListRecursiveUntilGetsToFront(current.getPrevious());
     }
 
 }

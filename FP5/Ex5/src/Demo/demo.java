@@ -169,6 +169,11 @@ public class demo {
                 tmp.addToRear(10);
                 tmp.addToRear(11);
                 System.out.println(tmp.toString());
+            case 30 :
+                tmp.addToFront(1);
+                tmp.addToFront(2);
+                tmp.addToRear(3);
+                System.out.println(tmp.toString());
             default:
                 break;
         }
@@ -176,7 +181,7 @@ public class demo {
 
     public static void main(String[] args) {
 
-        for(int i = 0; i <= 29 ; i++){
+        for(int i = 0; i <= 30 ; i++){
             try {
                 Tests(i);
             } catch (Exception ex) {

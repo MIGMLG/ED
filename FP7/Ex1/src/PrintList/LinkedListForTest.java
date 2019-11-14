@@ -24,14 +24,9 @@ public class LinkedListForTest<T> implements LinkedListForTestInterface<T> {
     }
 
     private String printListRecursive(LinkNode<T> current) {
-        String text = "";
-
         if (current.getNext() == null) {
             return "\n" + current.toString();
         }
-        text += "\n" + current.toString() + printListRecursive(current.getNext());
-        return text;
-
-
+        return "\n" + current.toString() + printListRecursive(current.getNext());
     }
 }

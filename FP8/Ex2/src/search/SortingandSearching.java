@@ -10,11 +10,11 @@ public class SortingandSearching {
 
         LinkNode<T> current = data.getHead();
 
-        while(current!=null){
-            if( current.getData().compareTo(target) == 0){
+        while (current != null) {
+            if (current.getData().compareTo(target) == 0) {
                 return true;
             }
-            current= current.getNext();
+            current = current.getNext();
         }
 
         return false;

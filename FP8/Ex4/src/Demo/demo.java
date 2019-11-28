@@ -10,7 +10,7 @@ public class demo {
     public static void main(String[] args) {
 
         LinkedListForTest<Car> list = new LinkedListForTest<>();
-        int test = 2;
+        int test = 3;
 
         Car c1 = new Car("Subaru", "WRX STI", 2006);
         Car c2 = new Car("McLaren", "730S", 2018);
@@ -33,6 +33,8 @@ public class demo {
             case 2:
                 sort.insertionSort(list);
                 break;
+            case 3:
+                sort.bubbleSort(list, list.getSize() - 1);
             default:
                 break;
         }

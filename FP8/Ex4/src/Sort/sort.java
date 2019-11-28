@@ -44,7 +44,7 @@ public class sort {
             current = data.getHead();
 
             while (current.getData() != max.getData()) {
-                if (max.getData().compareTo(current.getData()) < 0){
+                if (max.getData().compareTo(current.getData()) < 0) {
                     tmpData = current.getData();
                     current.setData(max.getData());
                     max.setData(tmpData);
@@ -54,5 +54,38 @@ public class sort {
 
             max = max.getNext();
         }
+    }
+
+    public static <T extends Comparable<? super T>> void bubbleSort(LinkedListForTest<T> data, int iteration) {
+
+        LinkNode<T> previous = data.getHead();
+        LinkNode<T> current = previous.getNext();
+        LinkNode<T> next;
+        T tmpData;
+
+        if (iteration != 0) {
+
+            while (current != null) {
+                next = current.getNext();
+                if (next != null && previous.getData().compareTo(next.getData()) > 0) {
+                    tmpData = previous.getData();
+                    previous.setData(next.getData());
+                    next.setData(tmpData);
+                }
+                if (previous.getData().compareTo(current.getData()) > 0) {
+                    tmpData = previous.getData();
+                    previous.setData(current.getData());
+                    current.setData(tmpData);
+                }
+                previous = previous.getNext();
+                current = previous.getNext();
+            }
+
+            bubbleSort(data, iteration - 1);
+        }
+
+
+
+
     }
 }

@@ -6,7 +6,6 @@ import java.sql.SQLOutput;
 
 public class Demo {
 
-
     public static void main(String[] args) {
 
         Car c1 = new Car("Subaru", "WRX STI", 2006);

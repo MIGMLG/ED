@@ -36,6 +36,10 @@ public class LinkedListForTest<T> implements LinkedListForTestInterface<T> {
         return head;
     }
 
+    public int getSize() {
+        return size;
+    }
+
     @Override
     public void add(T data) {
         if (size == 0) {

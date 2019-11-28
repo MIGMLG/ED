@@ -36,7 +36,6 @@ public class sort {
 
     public static <T extends Comparable<? super T>> void insertionSort(LinkedListForTest<T> data) {
 
-        //LinkNode<T> current = data.getHead();
         LinkNode<T> max = data.getHead().getNext();
         LinkNode<T> current;
         T tmpData;

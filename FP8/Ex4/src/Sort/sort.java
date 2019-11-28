@@ -36,25 +36,24 @@ public class sort {
 
     public static <T extends Comparable<? super T>> void insertionSort(LinkedListForTest<T> data) {
 
-        LinkNode<T> current = data.getHead();
-        LinkNode<T> max;
-        LinkNode<T> tmp;
+        //LinkNode<T> current = data.getHead();
+        LinkNode<T> max = data.getHead().getNext();
+        LinkNode<T> current;
         T tmpData;
 
-        while (current.getNext() != null) {
-            max = current.getNext();
-            tmp = data.getHead();
+        while (max != null) {
+            current = data.getHead();
 
-            while (tmp.getData() != max.getData()) {
-                if (max.getData().compareTo(tmp.getData()) < 0){
-                    tmpData = tmp.getData();
-                    tmp.setData(max.getData());
+            while (current.getData() != max.getData()) {
+                if (max.getData().compareTo(current.getData()) < 0){
+                    tmpData = current.getData();
+                    current.setData(max.getData());
                     max.setData(tmpData);
                 }
-                tmp = tmp.getNext();
+                current = current.getNext();
             }
 
-            current = current.getNext();
+            max = max.getNext();
         }
     }
 }

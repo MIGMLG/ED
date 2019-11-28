@@ -5,49 +5,19 @@ import java.util.Iterator;
 
 public class ArrayList<T> implements ListADT<T> {
 
-    private class ArrayListIterator<T> implements Iterator<T> {
-
-        private int current = 0;
-        private int expectedModCount = modCount;
-
-        @Override
-        public boolean hasNext() {
-            if (expectedModCount == modCount) {
-                if (current < size) {
-                    return true;
-                }
-                return false;
-            }
-            throw new ConcurrentModificationException();
-        }
-
-        @Override
-        public T next() {
-            if (this.hasNext()) {
-                T tmp = (T) list[current];
-                current++;
-                return tmp;
-            }
-            throw new ArrayIndexOutOfBoundsException();
-        }
-    }
-
     protected T[] list;
-    private final int DEFAULT_CAPACITY = 10;
-    protected int size;
+    private final static int DEFAULT_CAPACITY = 10;
     protected int rear;
     protected int modCount;
 
     public ArrayList() {
         list = (T[]) (new Object[DEFAULT_CAPACITY]);
-        size = 0;
         rear = 0;
         modCount = 0;
     }
 
     public ArrayList(int capacity) {
         list = (T[]) (new Object[capacity]);
-        size = 0;
         rear = 0;
         modCount = 0;
     }
@@ -59,15 +29,12 @@ public class ArrayList<T> implements ListADT<T> {
         }
 
         T tmp = list[0];
-        list[0] = null;
 
-        size--;
-        rear--;
-
-        for (int i = 0; i < size(); i++) {
+        for (int i = 0; i < size() - 1; i++) {
             list[i] = list[i + 1];
         }
 
+        rear--;
         modCount++;
         return tmp;
     }
@@ -80,7 +47,6 @@ public class ArrayList<T> implements ListADT<T> {
         T tmp = list[rear - 1];
         list[rear - 1] = null;
 
-        size--;
         rear--;
         modCount++;
 
@@ -91,26 +57,28 @@ public class ArrayList<T> implements ListADT<T> {
     public T remove(T element) {
         int position = search(element);
 
-        if (position != -1) {
-            if (position == 0) {
-                return removeFirst();
-            } else if (position == rear - 1) {
-                return removeLast();
-            }
+        if (position == -1) {
+            return null;
+        }
 
-            size--;
-            rear--;
+        T tmp = list[position];
 
-            T tmp = list[position];
+        if (position == 0) {
+            tmp = removeFirst();
+        } else if (position == rear - 1) {
+            tmp = removeLast();
+        } else {
 
-            for (int i = position; i < size(); i++) {
+            for (int i = position; i < size() - 1; i++) {
                 list[i] = list[i + 1];
             }
 
+            rear--;
             modCount++;
-            return tmp;
         }
-        return null;
+
+        return tmp;
+
     }
 
     @Override
@@ -131,7 +99,7 @@ public class ArrayList<T> implements ListADT<T> {
 
     @Override
     public boolean contains(T target) {
-        return (search(target) > -1);
+        return (search(target) != -1);
     }
 
     private int search(T target) {
@@ -157,19 +125,47 @@ public class ArrayList<T> implements ListADT<T> {
 
     @Override
     public int size() {
-        return size;
+        return rear;
     }
 
     @Override
     public Iterator<T> iterator() {
-        Iterator<T> itr = new ArrayListIterator<T>();
-        return itr;
+        return new ArrayListIterator<T>(modCount);
+    }
+
+    private class ArrayListIterator<T> implements Iterator<T> {
+
+        private int current;
+        private int expectedModCount;
+
+        public ArrayListIterator(int expectedModCount) {
+            this.current = 0;
+            this.expectedModCount = expectedModCount;
+        }
+
+        @Override
+        public boolean hasNext() {
+            if (expectedModCount == modCount) {
+                return (current < size());
+            }
+            throw new ConcurrentModificationException();
+        }
+
+        @Override
+        public T next() {
+            if (!this.hasNext()) {
+                throw new ArrayIndexOutOfBoundsException();
+            }
+            T tmp = (T) list[current];
+            current++;
+            return tmp;
+        }
     }
 
     @Override
     public String toString() {
         String text = "";
-        Iterator<T> itr = iterator();
+        Iterator itr = iterator();
 
         while (itr.hasNext()) {
             text += "\n" + itr.next().toString();

@@ -11,7 +11,7 @@ public class OrderedArrayList<T> extends ArrayList<T> implements OrderedListADT<
                 boolean found = false;
                 int current = 0;
 
-                while (current < size && found == false) {
+                while (current < size() && found == false) {
                     Comparable<T> tmp = (Comparable<T>) list[current];
                     if (tmp.compareTo(element) > 0) {
                         found = true;
@@ -29,8 +29,8 @@ public class OrderedArrayList<T> extends ArrayList<T> implements OrderedListADT<
                     list[rear] = element;
                 }
             }
+
             rear++;
-            size++;
             modCount++;
         } else {
             System.out.println("Objecto não é instancia de Comparable.");

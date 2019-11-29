@@ -56,14 +56,16 @@ public class sort {
         }
     }
 
-    public static <T extends Comparable<? super T>> void bubbleSort(LinkedListForTest<T> data, int iteration) {
+    public static <T extends Comparable<? super T>> void bubbleSort(LinkedListForTest<T> data) {
+        // Número de iterações é igual ao á divisão de do tamanho da estrutura por 3 mais o resto da mesma divisão
+        int iteration = ((data.getSize() + (3-1))/ 3);
 
-        LinkNode<T> previous = data.getHead();
-        LinkNode<T> current = previous.getNext();
-        LinkNode<T> next;
-        T tmpData;
+        while (iteration != 0) {
 
-        if (iteration != 0) {
+            LinkNode<T> previous = data.getHead();
+            LinkNode<T> current = previous.getNext();
+            LinkNode<T> next;
+            T tmpData;
 
             while (current != null) {
                 next = current.getNext();
@@ -80,11 +82,8 @@ public class sort {
                 previous = previous.getNext();
                 current = previous.getNext();
             }
-
-            bubbleSort(data, iteration - 1);
+            iteration--;
         }
-
-
 
 
     }

@@ -34,7 +34,7 @@ public class demo {
                 sort.insertionSort(list);
                 break;
             case 3:
-                sort.bubbleSort(list, list.getSize() - 1);
+                sort.bubbleSort(list);
             default:
                 break;
         }

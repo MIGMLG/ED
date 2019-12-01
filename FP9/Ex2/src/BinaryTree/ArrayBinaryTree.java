@@ -7,8 +7,8 @@ import java.util.Iterator;
 
 public class ArrayBinaryTree<T> implements BinaryTreeADT<T> {
 
-    private int size;
-    private T[] tree;
+    protected int size;
+    protected T[] tree;
     private final static int CAPACITY = 10;
 
     public ArrayBinaryTree() {

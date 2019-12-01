@@ -1,5 +1,9 @@
 package BinaryTree;
 
+import Lists.UnorderedArray;
+import Lists.UnorderedListADT;
+import Queue.LinkedQueue;
+
 import java.util.Iterator;
 
 public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
@@ -51,8 +55,8 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
     public T find(T targetElement) throws BinaryTreeExceptions {
         BinaryTreeNode<T> found = findAgain(targetElement, root);
 
-        if(found == null){
-         throw new BinaryTreeExceptions(BinaryTreeExceptions.ELEMENT_NOT_FOUND);
+        if (found == null) {
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.ELEMENT_NOT_FOUND);
         }
 
         return found.getElement();
@@ -78,22 +82,104 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
     }
 
     @Override
-    public Iterator<T> iteratorInOrder() {
-        return null;
+    public Iterator<T> iteratorInOrder() throws BinaryTreeExceptions {
+
+        if (isEmpty()) {
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+        }
+
+        UnorderedArray<T> list = new UnorderedArray<>();
+
+        inOrder(root, list);
+
+        return list.iterator();
+    }
+
+    private void inOrder(BinaryTreeNode<T> node, UnorderedArray<T> list) {
+
+        if (node != null) {
+            inOrder(node.getLeft(), list);
+            list.addToRear(node.getElement());
+            inOrder(node.getRight(), list);
+        }
+
     }
 
     @Override
-    public Iterator<T> iteratorPreOrder() {
-        return null;
+    public Iterator<T> iteratorPreOrder() throws BinaryTreeExceptions {
+
+        if (isEmpty()) {
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+        }
+
+        UnorderedArray<T> list = new UnorderedArray<>();
+
+        preOrder(root, list);
+
+        return list.iterator();
+    }
+
+    private void preOrder(BinaryTreeNode<T> node, UnorderedArray<T> list) {
+
+        if (node != null) {
+            list.addToRear(node.getElement());
+            preOrder(node.getLeft(), list);
+            preOrder(node.getRight(), list);
+        }
+
     }
 
     @Override
-    public Iterator<T> iteratorPostOrder() {
-        return null;
+    public Iterator<T> iteratorPostOrder() throws BinaryTreeExceptions {
+
+        if (isEmpty()) {
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+        }
+
+        UnorderedArray<T> list = new UnorderedArray<>();
+
+        postOrder(root, list);
+
+        return list.iterator();
+    }
+
+    private void postOrder(BinaryTreeNode<T> node, UnorderedArray<T> list) {
+
+        if (node != null) {
+            postOrder(node.getLeft(), list);
+            postOrder(node.getRight(), list);
+            list.addToRear(node.getElement());
+        }
+
     }
 
     @Override
-    public Iterator<T> iteratorLevelOrder() {
-        return null;
+    public Iterator<T> iteratorLevelOrder() throws BinaryTreeExceptions {
+
+        if (isEmpty()) {
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+        }
+
+        UnorderedArray<T> list = new UnorderedArray<>();
+        LinkedQueue<BinaryTreeNode<T>> queue = new LinkedQueue<>();
+
+        queue.enqueue(root);
+
+        while (!queue.isEmpty()) {
+            BinaryTreeNode<T> tmpNode = queue.dequeue();
+            if (tmpNode.getElement() != null) {
+                list.addToRear(tmpNode.getElement());
+                if (tmpNode.getLeft() != null) {
+                    queue.enqueue(tmpNode.getLeft());
+                }
+                if (tmpNode.getRight() != null) {
+                    queue.enqueue(tmpNode.getRight());
+                }
+            }
+        }
+
+
+        return list.iterator();
     }
+
 }

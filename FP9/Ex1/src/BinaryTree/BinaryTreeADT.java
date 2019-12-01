@@ -58,7 +58,7 @@ public interface BinaryTreeADT<T> {
      *
      * @return an iterator over the elements of this binary tree
      */
-    public Iterator<T> iteratorInOrder();
+    public Iterator<T> iteratorInOrder() throws BinaryTreeExceptions;
 
     /**
      * Performs a preorder traversal on this binary tree by calling an
@@ -67,7 +67,7 @@ public interface BinaryTreeADT<T> {
      *
      * @return an iterator over the elements of this binary tree
      */
-    public Iterator<T> iteratorPreOrder();
+    public Iterator<T> iteratorPreOrder() throws BinaryTreeExceptions;
 
     /**
      * Performs a postorder traversal on this binary tree by
@@ -76,7 +76,7 @@ public interface BinaryTreeADT<T> {
      *
      * @return an iterator over the elements of this binary tree
      */
-    public Iterator<T> iteratorPostOrder();
+    public Iterator<T> iteratorPostOrder() throws BinaryTreeExceptions;
 
     /**
      * Performs a levelorder traversal on the binary tree,
@@ -84,6 +84,6 @@ public interface BinaryTreeADT<T> {
      *
      * @return an iterator over the elements of this binary tree
      */
-    public Iterator<T> iteratorLevelOrder();
+    public Iterator<T> iteratorLevelOrder() throws BinaryTreeExceptions;
 
 }

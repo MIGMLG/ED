@@ -178,7 +178,6 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
             }
         }
 
-
         return list.iterator();
     }
 

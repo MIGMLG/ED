@@ -116,7 +116,7 @@ public class LinkedBinarySearchTree<T> extends LinkedBinaryTree<T> implements Bi
             }
             if (node.getRight() == current) {// se o node sem filho á esquerda for o igual ao filho direito do node a remover o filho esquerdo passa a ser filho esquerdo do filho direito
                 current.setLeft(node.getLeft());
-            } else {
+            } else {// se o node filho da direita tiver nodes á esquerda, esse node substituirá o node removido e o node pai dele passará a ser seu filho á direita
                 parent.setLeft(current.getRight());
                 current.setRight(node.getRight());
                 current.setLeft(node.getLeft());

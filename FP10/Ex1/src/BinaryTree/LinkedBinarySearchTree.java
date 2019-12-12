@@ -128,24 +128,21 @@ public class LinkedBinarySearchTree<T> extends LinkedBinaryTree<T> implements Bi
 
     @Override
     public void removeAllOccurrences(T targetElement) throws BinaryTreeExceptions {
-        Iterator<T> itr = iteratorInOrder();
-        int count = 0;
 
-        while (itr.hasNext()){
-            if(itr.next().equals(targetElement)){
-                count++;
+        removeElement(targetElement);
+
+        try{
+            while(true){
+                removeElement(targetElement);
             }
-        }
 
-        for( int i = 0; i < count; i++){
-            removeElement(targetElement);
-        }
+        } catch (Exception ex){}
 
     }
 
     @Override
     public T removeMin() throws BinaryTreeExceptions {
-        if(isEmpty()){
+        if (isEmpty()) {
             throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
         }
 
@@ -154,7 +151,7 @@ public class LinkedBinarySearchTree<T> extends LinkedBinaryTree<T> implements Bi
 
     @Override
     public T removeMax() throws BinaryTreeExceptions {
-        if(isEmpty()){
+        if (isEmpty()) {
             throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
         }
 
@@ -164,13 +161,13 @@ public class LinkedBinarySearchTree<T> extends LinkedBinaryTree<T> implements Bi
     @Override
     public T findMin() throws BinaryTreeExceptions {
 
-        if(isEmpty()){
+        if (isEmpty()) {
             throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
         }
 
         BinaryTreeNode<T> found = root;
 
-        while (found.getLeft() != null){
+        while (found.getLeft() != null) {
             found = found.getLeft();
         }
 
@@ -179,13 +176,13 @@ public class LinkedBinarySearchTree<T> extends LinkedBinaryTree<T> implements Bi
 
     @Override
     public T findMax() throws BinaryTreeExceptions {
-        if(isEmpty()){
+        if (isEmpty()) {
             throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
         }
 
         BinaryTreeNode<T> found = root;
 
-        while (found.getRight() != null){
+        while (found.getRight() != null) {
             found = found.getRight();
         }
 

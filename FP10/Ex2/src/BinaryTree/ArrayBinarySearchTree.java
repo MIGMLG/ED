@@ -73,13 +73,18 @@ public class ArrayBinarySearchTree<T> extends ArrayBinaryTree<T> implements Bina
 
     @Override
     public T removeElement(T targetElement) throws BinaryTreeExceptions {
-
         if (isEmpty()) {
             throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
         }
 
+        int position = findAgain(targetElement, 0);
 
-        return null;
+        if (position != -1) {
+            return null;
+        }
+
+        throw new BinaryTreeExceptions(BinaryTreeExceptions.ELEMENT_NOT_FOUND);
+
     }
 
     @Override

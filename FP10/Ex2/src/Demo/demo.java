@@ -14,14 +14,14 @@ public class demo {
         switch (test) {
             // Teste para o add
             case 1:
-                tree.addElement(1);
                 tree.addElement(3);
-                //tree.addElement(2);
-                //tree.addElement(1);
-                //tree.addElement(6);
-                //tree.addElement(5);
-                //tree.addElement(4);
-                System.out.println(tree.find(3));
+                tree.addElement(2);
+                tree.addElement(1);
+                tree.addElement(6);
+                tree.addElement(5);
+                tree.addElement(4);
+                System.out.println(tree.find(4));
+                System.out.println("Expected: null. Result : " + tree.removeElement(4));
                 Iterator<Integer> itr = tree.iteratorLevelOrder();
                 while(itr.hasNext()){
                     System.out.println(itr.next());

@@ -75,7 +75,7 @@ public class ArrayBinaryTree<T> implements BinaryTreeADT<T> {
         throw new BinaryTreeExceptions(BinaryTreeExceptions.ELEMENT_NOT_FOUND);
     }
 
-    private int findAgain(T targetElement, int next) {
+    protected int findAgain(T targetElement, int next) {
 
         if (tree[next] == null) {
             return -1;

@@ -20,8 +20,8 @@ public class demo {
                 tree.addElement(6);
                 tree.addElement(5);
                 tree.addElement(4);
-                System.out.println(tree.find(4));
-                System.out.println("Expected: null. Result : " + tree.removeElement(4));
+                System.out.println(tree.find(5));
+                System.out.println("Expected: 2. Result : " + tree.removeElement(2));
                 Iterator<Integer> itr = tree.iteratorLevelOrder();
                 while(itr.hasNext()){
                     System.out.println(itr.next());

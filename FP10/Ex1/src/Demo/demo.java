@@ -47,6 +47,10 @@ public class demo {
                 tree.addElement(4);
                 tree.addElement(6);
                 tree.removeAllOccurrences(5);
+                Iterator<Integer> it = tree.iteratorLevelOrder();
+                while(it.hasNext()){
+                    System.out.println(it.next());
+                }
                 System.out.println("Excepted : 1. Result : " + tree.findMin());
                 System.out.println("Excepted : 6. Result : " + tree.findMax());
             default:

@@ -9,7 +9,7 @@ public class ArrayBinaryTree<T> implements BinaryTreeADT<T> {
 
     protected int size;
     protected T[] tree;
-    private final static int CAPACITY = 10;
+    protected final static int CAPACITY = 10;
 
     public ArrayBinaryTree() {
         tree = (T[]) new Object[CAPACITY];
@@ -44,7 +44,7 @@ public class ArrayBinaryTree<T> implements BinaryTreeADT<T> {
 
     @Override
     public boolean contains(T targetElement) throws BinaryTreeExceptions {
-        return (search(targetElement) != 1);
+        return (search(targetElement) != -1);
     }
 
     private int search(T targetElement) {
@@ -66,13 +66,32 @@ public class ArrayBinaryTree<T> implements BinaryTreeADT<T> {
             throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
         }
 
-        int position = search(targetElement);
+        int position = findAgain(targetElement, 0);
 
         if (position != -1) {
             return tree[position];
         }
 
         throw new BinaryTreeExceptions(BinaryTreeExceptions.ELEMENT_NOT_FOUND);
+    }
+
+    private int findAgain(T targetElement, int next) {
+
+        if (tree[next] == null) {
+            return -1;
+        }
+
+        if (tree[next].equals(targetElement)) {
+            return next;
+        }
+
+        int temp = findAgain(targetElement, (next * 2 + 1));
+
+        if (temp == -1) {
+            temp = findAgain(targetElement, (next * 2 + 2));
+        }
+
+        return temp;
     }
 
     @Override
@@ -88,13 +107,13 @@ public class ArrayBinaryTree<T> implements BinaryTreeADT<T> {
         return list.iterator();
     }
 
-    private void inOrder(int node, UnorderedArray<T> list) {
+    private void inOrder(int position, UnorderedArray<T> list) {
 
-        if (node < tree.length) {
-            if (tree[node] != null) {
-                inOrder(node * 2 + 1, list);
-                list.addToRear(tree[node]);
-                inOrder((node + 1) * 2, list);
+        if (position < tree.length) {
+            if (tree[position] != null) {
+                inOrder(position * 2 + 1, list);
+                list.addToRear(tree[position]);
+                inOrder((position + 1) * 2, list);
             }
         }
 
@@ -112,13 +131,13 @@ public class ArrayBinaryTree<T> implements BinaryTreeADT<T> {
         return list.iterator();
     }
 
-    private void preOrder(int node, UnorderedArray<T> list) {
+    private void preOrder(int position, UnorderedArray<T> list) {
 
-        if (node < tree.length) {
-            if (tree[node] != null) {
-                list.addToRear(tree[node]);
-                preOrder(node * 2 + 1, list);
-                preOrder((node + 1) * 2, list);
+        if (position < tree.length) {
+            if (tree[position] != null) {
+                list.addToRear(tree[position]);
+                preOrder(position * 2 + 1, list);
+                preOrder((position + 1) * 2, list);
             }
         }
 
@@ -136,13 +155,13 @@ public class ArrayBinaryTree<T> implements BinaryTreeADT<T> {
         return list.iterator();
     }
 
-    private void postOrder(int node, UnorderedArray<T> list) {
+    private void postOrder(int position, UnorderedArray<T> list) {
 
-        if (node < tree.length) {
-            if (tree[node] != null) {
-                postOrder(node * 2 + 1, list);
-                postOrder((node + 1) * 2, list);
-                list.addToRear(tree[node]);
+        if (position < tree.length) {
+            if (tree[position] != null) {
+                postOrder(position * 2 + 1, list);
+                postOrder((position + 1) * 2, list);
+                list.addToRear(tree[position]);
             }
         }
 
@@ -160,14 +179,14 @@ public class ArrayBinaryTree<T> implements BinaryTreeADT<T> {
         queue.enqueue(0);
 
         while (!queue.isEmpty()) {
-            int node = queue.dequeue();
-            if (tree[node] != null) {
-                list.addToRear(tree[node]);
-                if (tree[(node * 2 + 1)] != null) {
-                    queue.enqueue((node * 2 + 1));
+            int position = queue.dequeue();
+            if (tree[position] != null) {
+                list.addToRear(tree[position]);
+                if ((position * 2 + 1) < tree.length && tree[(position * 2 + 1)] != null) {
+                    queue.enqueue((position * 2 + 1));
                 }
-                if (tree[((node + 1) * 2)] != null) {
-                    queue.enqueue(((node + 1) * 2));
+                if (((position + 1) * 2) < tree.length && tree[((position + 1) * 2)] != null) {
+                    queue.enqueue(((position + 1) * 2));
                 }
             }
         }

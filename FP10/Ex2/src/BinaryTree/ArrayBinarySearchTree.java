@@ -89,7 +89,6 @@ public class ArrayBinarySearchTree<T> extends ArrayBinaryTree<T> implements Bina
 
         T tmp = tree[position];
         replacement(position);
-        size--;
 
         int temp = maxIndex;
         maxIndex = -1;
@@ -108,42 +107,46 @@ public class ArrayBinarySearchTree<T> extends ArrayBinaryTree<T> implements Bina
     protected void replacement(int position) {
         if((position * 2 + 1) <= maxIndex && tree[(position * 2 + 1)] != null){
             UnorderedArray<T> list = new UnorderedArray<>();
-            getOtherElementsAndClean(position, list);
+            getElementsAndClean(position, list);
 
             Iterator<T> tmpItr = list.iterator();
             tmpItr.next();
 
             tree[position] = tmpItr.next();
+            size++;
 
             while (tmpItr.hasNext()) {
                 this.addElement(tmpItr.next());
             }
         } else if (((position + 1) * 2) <= maxIndex && tree[((position + 1) * 2)] != null){
             UnorderedArray<T> list = new UnorderedArray<>();
-            getOtherElementsAndClean(position, list);
+            getElementsAndClean(position, list);
 
             Iterator<T> tmpItr = list.iterator();
             tmpItr.next();
 
             tree[position] = tmpItr.next();
+            size++;
 
             while (tmpItr.hasNext()) {
                 this.addElement(tmpItr.next());
             }
         } else {
             tree[position] = null;
+            size--;
         }
 
     }
 
-    private void getOtherElementsAndClean(int position, UnorderedArray<T> list) {
+    private void getElementsAndClean(int position, UnorderedArray<T> list) {
 
         if (position < tree.length) {
             if (tree[position] != null) {
                 list.addToRear(tree[position]);
                 tree[position] = null;
-                getOtherElementsAndClean(position * 2 + 1, list);
-                getOtherElementsAndClean((position + 1) * 2, list);
+                size--;
+                getElementsAndClean(position * 2 + 1, list);
+                getElementsAndClean((position + 1) * 2, list);
             }
         }
 

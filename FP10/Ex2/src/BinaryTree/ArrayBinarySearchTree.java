@@ -88,15 +88,7 @@ public class ArrayBinarySearchTree<T> extends ArrayBinaryTree<T> implements Bina
         }
 
         T tmp = tree[position];
-
-        if((position * 2 + 1) < maxIndex && tree[(position * 2 + 1)] != null){
-            replacement(position);
-        } else if (((position + 1) * 2) < maxIndex && tree[((position + 1) * 2)] != null){
-            replacement(position);
-        } else {
-            tree[position] = null;
-        }
-
+        replacement(position);
         size--;
 
         int temp = maxIndex;
@@ -114,25 +106,43 @@ public class ArrayBinarySearchTree<T> extends ArrayBinaryTree<T> implements Bina
     }
 
     protected void replacement(int position) {
-        UnorderedArray<T> list = new UnorderedArray<>();
-        getOtherElementsAndClean(position, list);
+        if((position * 2 + 1) <= maxIndex && tree[(position * 2 + 1)] != null){
+            UnorderedArray<T> list = new UnorderedArray<>();
+            getOtherElementsAndClean(position, list);
 
-        Iterator<T> tmpItr = list.iterator();
+            Iterator<T> tmpItr = list.iterator();
+            tmpItr.next();
 
-        tree[position] = tmpItr.next();
+            tree[position] = tmpItr.next();
 
-        while (tmpItr.hasNext()) {
-            this.addElement(tmpItr.next());
+            while (tmpItr.hasNext()) {
+                this.addElement(tmpItr.next());
+            }
+        } else if (((position + 1) * 2) <= maxIndex && tree[((position + 1) * 2)] != null){
+            UnorderedArray<T> list = new UnorderedArray<>();
+            getOtherElementsAndClean(position, list);
+
+            Iterator<T> tmpItr = list.iterator();
+            tmpItr.next();
+
+            tree[position] = tmpItr.next();
+
+            while (tmpItr.hasNext()) {
+                this.addElement(tmpItr.next());
+            }
+        } else {
+            tree[position] = null;
         }
+
     }
 
     private void getOtherElementsAndClean(int position, UnorderedArray<T> list) {
 
         if (position < tree.length) {
             if (tree[position] != null) {
-                getOtherElementsAndClean(position * 2 + 1, list);
                 list.addToRear(tree[position]);
                 tree[position] = null;
+                getOtherElementsAndClean(position * 2 + 1, list);
                 getOtherElementsAndClean((position + 1) * 2, list);
             }
         }

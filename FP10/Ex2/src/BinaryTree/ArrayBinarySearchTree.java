@@ -88,7 +88,15 @@ public class ArrayBinarySearchTree<T> extends ArrayBinaryTree<T> implements Bina
         }
 
         T tmp = tree[position];
-        replacement(position);
+
+        if((position * 2 + 1) < maxIndex && tree[(position * 2 + 1)] != null){
+            replacement(position);
+        } else if (((position + 1) * 2) < maxIndex && tree[((position + 1) * 2)] != null){
+            replacement(position);
+        } else {
+            tree[position] = null;
+        }
+
         size--;
 
         int temp = maxIndex;
@@ -106,13 +114,29 @@ public class ArrayBinarySearchTree<T> extends ArrayBinaryTree<T> implements Bina
     }
 
     protected void replacement(int position) {
-        if((position * 2 + 1) < tree.length && tree[(position * 2 + 1)] != null){
+        UnorderedArray<T> list = new UnorderedArray<>();
+        getOtherElementsAndClean(position, list);
 
-        } else if (((position + 1) * 2) < tree.length && tree[((position + 1) * 2)] != null){
+        Iterator<T> tmpItr = list.iterator();
 
-        } else {
-            tree[position] = null;
+        tree[position] = tmpItr.next();
+
+        while (tmpItr.hasNext()) {
+            this.addElement(tmpItr.next());
         }
+    }
+
+    private void getOtherElementsAndClean(int position, UnorderedArray<T> list) {
+
+        if (position < tree.length) {
+            if (tree[position] != null) {
+                getOtherElementsAndClean(position * 2 + 1, list);
+                list.addToRear(tree[position]);
+                tree[position] = null;
+                getOtherElementsAndClean((position + 1) * 2, list);
+            }
+        }
+
     }
 
     @Override
@@ -146,7 +170,7 @@ public class ArrayBinarySearchTree<T> extends ArrayBinaryTree<T> implements Bina
 
         int position = 0;
 
-        while ( tree[2 * position + 1] != null && (2 * position + 1) <= maxIndex) {
+        while (tree[2 * position + 1] != null && (2 * position + 1) <= maxIndex) {
             position = 2 * position + 1;
         }
         return tree[position];

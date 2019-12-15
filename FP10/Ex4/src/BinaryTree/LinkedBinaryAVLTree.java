@@ -40,6 +40,13 @@ public class LinkedBinaryAVLTree<T> extends LinkedBinaryTree<T> implements Binar
             }
         }
         size++;
+        int balance = checkBalance(root);
+
+        if (balance < -1) {
+            root = rotationRight(root);
+        } else if (balance > 1) {
+            root = rotationLeft(root);
+        }
     }
 
     @Override
@@ -73,7 +80,6 @@ public class LinkedBinaryAVLTree<T> extends LinkedBinaryTree<T> implements Binar
                         } else {
                             parent.setRight(replacement(current));
                         }
-
 
                     } else {
                         parent = current;
@@ -129,12 +135,13 @@ public class LinkedBinaryAVLTree<T> extends LinkedBinaryTree<T> implements Binar
 
         removeElement(targetElement);
 
-        try{
-            while(true){
+        try {
+            while (true) {
                 removeElement(targetElement);
             }
 
-        } catch (Exception ex){}
+        } catch (Exception ex) {
+        }
 
     }
 
@@ -187,8 +194,45 @@ public class LinkedBinaryAVLTree<T> extends LinkedBinaryTree<T> implements Binar
         return found.getElement();
     }
 
-    @Override
-    public int checkBalance() {
-        return root.balance;
+    public int checkBalance(BinaryAVLTreeNode<T> root) {
+        return root.getBalance();
+    }
+
+    private BinaryAVLTreeNode<T> rotationRight(BinaryAVLTreeNode<T> oldRoot) {
+        BinaryAVLTreeNode<T> newRoot = new BinaryAVLTreeNode<>(oldRoot.getLeft().getElement());
+        newRoot.setLeft(oldRoot.getLeft().getLeft());
+
+        newRoot.setRight(new BinaryAVLTreeNode<>(oldRoot.getElement()));
+        newRoot.getRight().setRight(oldRoot.getRight());
+
+        if (oldRoot.getLeft().getRight() != null) {
+            newRoot.getRight().setLeft(oldRoot.getLeft().getRight());
+        }
+
+        return newRoot;
+    }
+
+    private BinaryAVLTreeNode<T> rotationLeft(BinaryAVLTreeNode<T> oldRoot) {
+        BinaryAVLTreeNode<T> newRoot = new BinaryAVLTreeNode<>(oldRoot.getRight().getElement());
+        newRoot.setRight(oldRoot.getRight().getRight());
+
+        newRoot.setLeft(new BinaryAVLTreeNode<>((oldRoot.getElement())));
+        newRoot.getLeft().setLeft(oldRoot.getLeft());
+
+        if(oldRoot.getRight().getLeft() != null){
+            newRoot.getLeft().setRight(oldRoot.getRight().getLeft());
+        }
+
+        return newRoot;
+    }
+
+    private BinaryAVLTreeNode<T> rotationRightLeft(BinaryAVLTreeNode<T> oldRoot) {
+        oldRoot.setRight(rotationRight(oldRoot.getRight()));
+        return rotationLeft(oldRoot);
+    }
+
+    private BinaryAVLTreeNode<T> rotationLeftRight(BinaryAVLTreeNode<T> oldRoot) {
+        oldRoot.setLeft(rotationLeft(oldRoot.getLeft()));
+        return rotationRight(oldRoot);
     }
 }

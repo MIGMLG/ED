@@ -9,6 +9,7 @@ public class demo {
 
     public static void tests(int test) throws BinaryTreeExceptions {
         LinkedBinaryAVLTree<Integer> tree = new LinkedBinaryAVLTree<>();
+        Iterator<Integer> itr;
 
         switch (test) {
             // Teste para o add
@@ -16,22 +17,19 @@ public class demo {
                 tree.addElement(3);
                 tree.addElement(2);
                 tree.addElement(1);
-                tree.addElement(6);
-                tree.addElement(5);
-                tree.addElement(4);
-                Iterator<Integer> itr = tree.iteratorLevelOrder();
+                itr = tree.iteratorPreOrder();
                 while(itr.hasNext()){
                     System.out.println(itr.next());
                 }
                 break;
             case 2:
-                tree.addElement(6);
-                tree.addElement(4);
-                tree.addElement(5);
-                tree.addElement(3);
-                tree.addElement(2);
                 tree.addElement(1);
-                System.out.println("Excpeted 4. Result : " + tree.removeElement(4));
+                tree.addElement(2);
+                tree.addElement(3);
+                itr = tree.iteratorPreOrder();
+                while(itr.hasNext()){
+                    System.out.println(itr.next());
+                }
                 break;
             case 3:
                 tree.addElement(6);
@@ -60,7 +58,7 @@ public class demo {
     }
 
     public static void main(String[] args) throws BinaryTreeExceptions {
-        demo.tests(3);
+        demo.tests(2);
     }
 
 }

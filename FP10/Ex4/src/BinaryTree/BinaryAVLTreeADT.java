@@ -53,6 +53,4 @@ public interface BinaryAVLTreeADT<T> extends BinaryTreeADT<T> {
      */
     public T findMax() throws BinaryTreeExceptions;
 
-    public int checkBalance();
-
 }

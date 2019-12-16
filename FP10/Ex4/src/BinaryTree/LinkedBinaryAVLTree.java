@@ -1,5 +1,9 @@
 package BinaryTree;
 
+import Lists.UnorderedArray;
+
+import java.util.Iterator;
+
 public class LinkedBinaryAVLTree<T> extends LinkedBinaryTree<T> implements BinaryAVLTreeADT<T> {
 
 
@@ -14,6 +18,7 @@ public class LinkedBinaryAVLTree<T> extends LinkedBinaryTree<T> implements Binar
     public void addElement(T element) {
         BinaryAVLTreeNode<T> temp = new BinaryAVLTreeNode<T>(element);
         Comparable<T> comparableElement = (Comparable<T>) element;
+        UnorderedArray<BinaryAVLTreeNode<T>> visitedNodes = new UnorderedArray();
 
         if (isEmpty()) {
             root = temp;
@@ -21,6 +26,7 @@ public class LinkedBinaryAVLTree<T> extends LinkedBinaryTree<T> implements Binar
             BinaryAVLTreeNode<T> current = root;
             boolean added = false;
             while (!added) {
+                visitedNodes.addToRear(current);
                 if (comparableElement.compareTo(current.getElement()) < 0) {
                     if (current.getLeft() == null) {
                         current.setLeft(temp);
@@ -40,12 +46,19 @@ public class LinkedBinaryAVLTree<T> extends LinkedBinaryTree<T> implements Binar
             }
         }
         size++;
+        updateBalanceOfNodes(visitedNodes.iterator());
         int balance = checkBalance(root);
-
         if (balance < -1) {
             root = rotationRight(root);
         } else if (balance > 1) {
             root = rotationLeft(root);
+        }
+    }
+
+    private void updateBalanceOfNodes(Iterator itr){
+        while (itr.hasNext()){
+            BinaryAVLTreeNode<T> tmpNode = (BinaryAVLTreeNode<T>) itr.next();
+            tmpNode.updateBalance();
         }
     }
 

@@ -4,11 +4,13 @@ public class BinaryAVLTreeNode<T> {
 
     private T element;
     private BinaryAVLTreeNode<T> left, right;
+    private int balance;
 
     public BinaryAVLTreeNode(T element) {
         this.element = element;
         this.left = null;
         this.right = null;
+        this.balance = 0;
     }
 
     public T getElement() {
@@ -49,26 +51,25 @@ public class BinaryAVLTreeNode<T> {
     }
 
     public int getBalance() {
-        return findRightHeight(this) - findLeftHeight(this);
+        return balance;
     }
 
-    private int findLeftHeight(BinaryAVLTreeNode<T> treeRoot) {
-        if (treeRoot == null) {
-            return 0;
-        }
-
-        int left = 1 + findLeftHeight(treeRoot.getLeft());
-
-        return left;
+    public void updateBalance() {
+        this.balance = findHeight(right) - findHeight(left);
     }
 
-    private int findRightHeight(BinaryAVLTreeNode<T> treeRoot) {
-        if (treeRoot == null) {
-            return 0;
+    private int findHeight(BinaryAVLTreeNode<T> root) {
+        if (root == null) {
+            return -1;
         }
 
-        int right = 1 + findRightHeight(treeRoot.getRight());
+        int lefth = findHeight(root.getLeft());
+        int righth = findHeight(root.getRight());
 
-        return right;
+        if (lefth > righth) {
+            return lefth + 1;
+        } else {
+            return righth + 1;
+        }
     }
 }

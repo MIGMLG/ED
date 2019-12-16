@@ -210,24 +210,44 @@ public class LinkedBinaryAVLTree<T> extends LinkedBinaryTree<T> implements Binar
         return found.getElement();
     }
 
-    private void checkBalance() {
-        BinaryAVLTreeNode<T> current = root;
-        int balance = current.getBalance();
-        if (balance < -1) {
-            if (current.getLeft().getBalance() == -1) {
-                root = rotationRight(root);
-                updateBalanceOfNodes(root); //sem necessidade só para teste
-            } else if (current.getLeft().getBalance() == 1){// dá para simplificar
-                rotationLeftRight(root);
-            }
-        } else if (balance > 1) {
-            if (current.getRight().getBalance() == 1) {
-                root = rotationLeft(root);
-                updateBalanceOfNodes(root); //sem necessidade só para teste
-            } else if (current.getRight().getBalance() == -1){ // dá para simplificar
-                rotationRightLeft(root);
-            }
+    private void getAllNodes(BinaryAVLTreeNode<T> node, UnorderedArray<BinaryAVLTreeNode<T>> list) {
+
+        if (node != null) {
+            list.addToRear(node);
+            getAllNodes(node.getLeft(), list);
+            getAllNodes(node.getRight(), list);
         }
+
+    }
+
+    private void checkBalance() {
+
+        UnorderedArray<BinaryAVLTreeNode<T>> nodes = new UnorderedArray<>();
+        getAllNodes(root, nodes);
+        Iterator itr = nodes.iterator();
+
+        while (itr.hasNext()) {
+            BinaryAVLTreeNode<T> current = (BinaryAVLTreeNode<T>) itr.next();
+            int balance = current.getBalance();
+
+            if (balance < -1) {
+                if (current.getLeft().getBalance() == -1) {
+                    root = rotationRight(root);
+                    updateBalanceOfNodes(root); //sem necessidade só para teste
+                } else if (current.getLeft().getBalance() == 1) {// dá para simplificar
+                    rotationLeftRight(root);
+                }
+            } else if (balance > 1) {
+                if (current.getRight().getBalance() == 1) {
+                    root = rotationLeft(root);
+                    updateBalanceOfNodes(root); //sem necessidade só para teste
+                } else if (current.getRight().getBalance() == -1) { // dá para simplificar
+                    rotationRightLeft(root);
+                }
+            }
+
+        }
+
     }
 
     private BinaryAVLTreeNode<T> rotationRight(BinaryAVLTreeNode<T> oldRoot) {

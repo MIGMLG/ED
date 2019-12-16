@@ -278,17 +278,13 @@ public class LinkedBinaryAVLTree<T> extends LinkedBinaryTree<T> implements Binar
 
     private BinaryAVLTreeNode<T> rotationRightLeft(BinaryAVLTreeNode<T> oldRoot) {
         oldRoot.setRight(rotationRight(oldRoot.getRight()));
-        updateBalanceOfNodes(oldRoot);
         oldRoot = rotationLeft(oldRoot);
-        updateBalanceOfNodes(oldRoot);
         return oldRoot;
     }
 
     private BinaryAVLTreeNode<T> rotationLeftRight(BinaryAVLTreeNode<T> oldRoot) {
         oldRoot.setLeft(rotationLeft(oldRoot.getLeft()));
-        updateBalanceOfNodes(oldRoot);
         oldRoot = rotationRight(oldRoot);
-        updateBalanceOfNodes(oldRoot);
         return oldRoot;
     }
 }

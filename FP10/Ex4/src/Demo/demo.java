@@ -47,7 +47,7 @@ public class demo {
     }
 
     public static void main(String[] args) throws BinaryTreeExceptions {
-        demo.tests(1);
+        demo.tests(2);
     }
 
 }

@@ -1,6 +1,7 @@
 package BinaryTree;
 
 import ArrayList.UnorderedArray;
+
 import java.util.Iterator;
 
 public class LinkedBinaryAVLTree<T> extends LinkedBinaryTree<T> implements BinaryAVLTreeADT<T> {
@@ -232,16 +233,14 @@ public class LinkedBinaryAVLTree<T> extends LinkedBinaryTree<T> implements Binar
                 current = rotationRight(current);
                 updateBalanceOfNodes(current); //sem necessidade só para teste
             } else if (current.getLeft().getBalance() == 1) {// dá para simplificar
-                rotationLeftRight(current);
-                updateBalanceOfNodes(current); //sem necessidade só para teste
+                current = rotationLeftRight(current);
             }
         } else if (balance > 1) {
             if (current.getRight().getBalance() == 1) {
                 current = rotationLeft(current);
                 updateBalanceOfNodes(current); //sem necessidade só para teste
             } else if (current.getRight().getBalance() == -1) { // dá para simplificar
-                rotationRightLeft(current);
-                updateBalanceOfNodes(current); //sem necessidade só para teste
+                current = rotationRightLeft(current);
             }
         }
 
@@ -259,7 +258,7 @@ public class LinkedBinaryAVLTree<T> extends LinkedBinaryTree<T> implements Binar
         if (oldRoot.getLeft().getRight() != null) {
             newRoot.getRight().setLeft(oldRoot.getLeft().getRight());
         }
-
+        updateBalanceOfNodes(newRoot);
         return newRoot;
     }
 
@@ -273,17 +272,23 @@ public class LinkedBinaryAVLTree<T> extends LinkedBinaryTree<T> implements Binar
         if (oldRoot.getRight().getLeft() != null) {
             newRoot.getLeft().setRight(oldRoot.getRight().getLeft());
         }
-
+        updateBalanceOfNodes(newRoot);
         return newRoot;
     }
 
     private BinaryAVLTreeNode<T> rotationRightLeft(BinaryAVLTreeNode<T> oldRoot) {
         oldRoot.setRight(rotationRight(oldRoot.getRight()));
-        return rotationLeft(oldRoot);
+        updateBalanceOfNodes(oldRoot);
+        oldRoot = rotationLeft(oldRoot);
+        updateBalanceOfNodes(oldRoot);
+        return oldRoot;
     }
 
     private BinaryAVLTreeNode<T> rotationLeftRight(BinaryAVLTreeNode<T> oldRoot) {
         oldRoot.setLeft(rotationLeft(oldRoot.getLeft()));
-        return rotationRight(oldRoot);
+        updateBalanceOfNodes(oldRoot);
+        oldRoot = rotationRight(oldRoot);
+        updateBalanceOfNodes(oldRoot);
+        return oldRoot;
     }
 }

@@ -1,4 +1,4 @@
-package Lists;
+package ArrayList;
 
 public class UnorderedArray<T> extends ArrayList<T> implements UnorderedListADT<T> {
 

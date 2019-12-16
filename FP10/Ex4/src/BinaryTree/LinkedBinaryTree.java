@@ -1,7 +1,6 @@
 package BinaryTree;
 
-import Lists.UnorderedArray;
-import Lists.UnorderedListADT;
+import ArrayList.UnorderedArray;
 import Queue.LinkedQueue;
 
 import java.util.Iterator;
@@ -62,7 +61,7 @@ abstract class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
         return found.getElement();
     }
 
-    private BinaryAVLTreeNode<T> findAgain(T targetElement, BinaryAVLTreeNode<T> next) {
+    protected BinaryAVLTreeNode<T> findAgain(T targetElement, BinaryAVLTreeNode<T> next) {
 
         if (next == null) {
             return null;
@@ -88,7 +87,7 @@ abstract class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
             throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
         }
 
-        UnorderedArray<T> list = new UnorderedArray<>();
+        UnorderedArray<T> list = new UnorderedArray();
 
         inOrder(root, list);
 
@@ -112,7 +111,7 @@ abstract class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
             throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
         }
 
-        UnorderedArray<T> list = new UnorderedArray<>();
+        UnorderedArray<T> list = new UnorderedArray();
 
         preOrder(root, list);
 
@@ -136,7 +135,7 @@ abstract class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
             throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
         }
 
-        UnorderedArray<T> list = new UnorderedArray<>();
+        UnorderedArray<T> list = new UnorderedArray();
 
         postOrder(root, list);
 
@@ -160,7 +159,7 @@ abstract class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
             throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
         }
 
-        UnorderedArray<T> list = new UnorderedArray<>();
+        UnorderedArray<T> list = new UnorderedArray();
         LinkedQueue<BinaryAVLTreeNode<T>> queue = new LinkedQueue<>();
 
         queue.enqueue(root);

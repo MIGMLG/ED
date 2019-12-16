@@ -14,9 +14,12 @@ public class demo {
         switch (test) {
             // Teste para o add
             case 1:
-                tree.addElement(3);
-                tree.addElement(2);
-                tree.addElement(1);
+                tree.addElement(20);
+                tree.addElement(9);
+                tree.addElement(31);
+                tree.addElement(8);
+                tree.addElement(32);
+                tree.addElement(7);
                 itr = tree.iteratorPreOrder();
                 while(itr.hasNext()){
                     System.out.println(itr.next());
@@ -58,7 +61,7 @@ public class demo {
     }
 
     public static void main(String[] args) throws BinaryTreeExceptions {
-        demo.tests(2);
+        demo.tests(1);
     }
 
 }

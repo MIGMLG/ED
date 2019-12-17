@@ -44,7 +44,7 @@ public class ArrayBinaryTree<T> implements BinaryTreeADT<T> {
 
     @Override
     public boolean contains(T targetElement) throws BinaryTreeExceptions {
-        return (search(targetElement) != 1);
+        return (search(targetElement) != -1);
     }
 
     private int search(T targetElement) {

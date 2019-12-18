@@ -69,7 +69,7 @@ public class MinLinkedHeap<T> extends LinkedBinaryTree<T> implements HeapADT<T> 
     public T removeMin() throws BinaryTreeExceptions {
 
         if (isEmpty()) {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         T minElement = root.getElement();

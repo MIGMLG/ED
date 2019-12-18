@@ -21,7 +21,7 @@ public class demo {
                 tree.addElement(5);
                 tree.addElement(4);
                 System.out.println("Expected: 5. Result : " + tree.find(5));
-                System.out.println("Expected: 4. Result : " + tree.removeElement(5));
+                System.out.println("Expected: 5. Result : " + tree.removeElement(5));
                 System.out.println("Size : " + tree.size());
                 Iterator<Integer> itr = tree.iteratorLevelOrder();
                 while(itr.hasNext()){

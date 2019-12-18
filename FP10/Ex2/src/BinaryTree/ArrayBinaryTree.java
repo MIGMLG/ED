@@ -26,7 +26,7 @@ public class ArrayBinaryTree<T> implements BinaryTreeADT<T> {
     public T getRoot() throws BinaryTreeExceptions {
 
         if (isEmpty()) {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         return tree[0];
@@ -63,7 +63,7 @@ public class ArrayBinaryTree<T> implements BinaryTreeADT<T> {
     public T find(T targetElement) throws BinaryTreeExceptions {
 
         if (isEmpty()) {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         int position = findAgain(targetElement, 0);
@@ -98,22 +98,22 @@ public class ArrayBinaryTree<T> implements BinaryTreeADT<T> {
     public Iterator<T> iteratorInOrder() throws BinaryTreeExceptions {
 
         if (isEmpty()) {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         UnorderedArray<T> list = new UnorderedArray<>();
-        inOrder(0, list);
+        inOrder(0, list, 0);
 
         return list.iterator();
     }
 
-    private void inOrder(int position, UnorderedArray<T> list) {
+    private void inOrder(int position, UnorderedArray<T> list, int count) {
 
         if (position < tree.length) {
             if (tree[position] != null) {
-                inOrder(position * 2 + 1, list);
+                inOrder(position * 2 + 1, list, count + 1);
                 list.addToRear(tree[position]);
-                inOrder((position + 1) * 2, list);
+                inOrder((position + 1) * 2, list, count + 2);
             }
         }
 
@@ -122,22 +122,22 @@ public class ArrayBinaryTree<T> implements BinaryTreeADT<T> {
     @Override
     public Iterator<T> iteratorPreOrder() throws BinaryTreeExceptions {
         if (isEmpty()) {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         UnorderedArray<T> list = new UnorderedArray<>();
-        preOrder(0, list);
+        preOrder(0, list, 0);
 
         return list.iterator();
     }
 
-    private void preOrder(int position, UnorderedArray<T> list) {
+    private void preOrder(int position, UnorderedArray<T> list, int count) {
 
-        if (position < tree.length) {
+        if (count < size) {
             if (tree[position] != null) {
                 list.addToRear(tree[position]);
-                preOrder(position * 2 + 1, list);
-                preOrder((position + 1) * 2, list);
+                preOrder(position * 2 + 1, list, count + 1);
+                preOrder((position + 1) * 2, list, count + 2);
             }
         }
 
@@ -146,21 +146,21 @@ public class ArrayBinaryTree<T> implements BinaryTreeADT<T> {
     @Override
     public Iterator<T> iteratorPostOrder() throws BinaryTreeExceptions {
         if (isEmpty()) {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         UnorderedArray<T> list = new UnorderedArray<>();
-        postOrder(0, list);
+        postOrder(0, list, 0);
 
         return list.iterator();
     }
 
-    private void postOrder(int position, UnorderedArray<T> list) {
+    private void postOrder(int position, UnorderedArray<T> list, int count) {
 
-        if (position < tree.length) {
+        if (count < size) {
             if (tree[position] != null) {
-                postOrder(position * 2 + 1, list);
-                postOrder((position + 1) * 2, list);
+                postOrder(position * 2 + 1, list, count + 1);
+                postOrder((position + 1) * 2, list, count + 2);
                 list.addToRear(tree[position]);
             }
         }
@@ -170,23 +170,27 @@ public class ArrayBinaryTree<T> implements BinaryTreeADT<T> {
     @Override
     public Iterator<T> iteratorLevelOrder() throws BinaryTreeExceptions {
         if (isEmpty()) {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         UnorderedArray<T> list = new UnorderedArray<>();
         LinkedQueue<Integer> queue = new LinkedQueue<>();
+        int count = 0;
 
         queue.enqueue(0);
+        count++;
 
         while (!queue.isEmpty()) {
             int position = queue.dequeue();
             if (tree[position] != null) {
                 list.addToRear(tree[position]);
-                if ((position * 2 + 1) < tree.length && tree[(position * 2 + 1)] != null) {
+                if (count < size && tree[(position * 2 + 1)] != null) {
                     queue.enqueue((position * 2 + 1));
+                    count++;
                 }
-                if (((position + 1) * 2) < tree.length && tree[((position + 1) * 2)] != null) {
+                if (count < size && tree[((position + 1) * 2)] != null) {
                     queue.enqueue(((position + 1) * 2));
+                    count++;
                 }
             }
         }

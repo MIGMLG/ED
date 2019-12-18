@@ -78,7 +78,7 @@ public class ArrayBinarySearchTree<T> extends ArrayBinaryTree<T> implements Bina
     @Override
     public T removeElement(T targetElement) throws BinaryTreeExceptions {
         if (isEmpty()) {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         int position = findAgain(targetElement, 0);
@@ -178,7 +178,7 @@ public class ArrayBinarySearchTree<T> extends ArrayBinaryTree<T> implements Bina
     @Override
     public T findMin() throws BinaryTreeExceptions {
         if (isEmpty()) {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         int position = 0;
@@ -192,7 +192,7 @@ public class ArrayBinarySearchTree<T> extends ArrayBinaryTree<T> implements Bina
     @Override
     public T findMax() throws BinaryTreeExceptions {
         if (isEmpty()) {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         int position = 0;

@@ -37,7 +37,7 @@ public class demo {
                     System.out.println(itr.next());
                 }
                 System.out.println("Excpeted 3. Result : " + tree.removeNext());
-                System.out.println("Excpeted 3. Result : " + tree.removeNext());
+                System.out.println("Excpeted 2. Result : " + tree.removeNext());
                 itr = tree.iteratorLevelOrder();
                 while (itr.hasNext()) {
                     System.out.println(itr.next());

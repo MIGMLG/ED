@@ -92,7 +92,7 @@ public class LinkedBinarySearchTree<T> extends LinkedBinaryTree<T> implements Bi
                 }
             }
         } else {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         return result;
@@ -143,7 +143,7 @@ public class LinkedBinarySearchTree<T> extends LinkedBinaryTree<T> implements Bi
     @Override
     public T removeMin() throws BinaryTreeExceptions {
         if (isEmpty()) {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         return removeElement(findMin());
@@ -152,7 +152,7 @@ public class LinkedBinarySearchTree<T> extends LinkedBinaryTree<T> implements Bi
     @Override
     public T removeMax() throws BinaryTreeExceptions {
         if (isEmpty()) {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         return removeElement(findMax());
@@ -162,7 +162,7 @@ public class LinkedBinarySearchTree<T> extends LinkedBinaryTree<T> implements Bi
     public T findMin() throws BinaryTreeExceptions {
 
         if (isEmpty()) {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         BinaryTreeNode<T> found = root;
@@ -177,7 +177,7 @@ public class LinkedBinarySearchTree<T> extends LinkedBinaryTree<T> implements Bi
     @Override
     public T findMax() throws BinaryTreeExceptions {
         if (isEmpty()) {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         BinaryTreeNode<T> found = root;

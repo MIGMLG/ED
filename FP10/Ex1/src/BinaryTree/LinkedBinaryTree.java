@@ -6,7 +6,7 @@ import Queue.LinkedQueue;
 
 import java.util.Iterator;
 
-abstract class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
+public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
 
     protected BinaryTreeNode<T> root;
     protected int size;
@@ -25,7 +25,7 @@ abstract class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
     public T getRoot() throws BinaryTreeExceptions {
 
         if (isEmpty()) {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         return root.getElement();
@@ -45,7 +45,7 @@ abstract class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
     public boolean contains(T targetElement) throws BinaryTreeExceptions {
 
         if (isEmpty()) {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         return (findAgain(targetElement, root) != null);
@@ -85,7 +85,7 @@ abstract class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
     public Iterator<T> iteratorInOrder() throws BinaryTreeExceptions {
 
         if (isEmpty()) {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         UnorderedArray<T> list = new UnorderedArray<>();
@@ -109,7 +109,7 @@ abstract class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
     public Iterator<T> iteratorPreOrder() throws BinaryTreeExceptions {
 
         if (isEmpty()) {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         UnorderedArray<T> list = new UnorderedArray<>();
@@ -133,7 +133,7 @@ abstract class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
     public Iterator<T> iteratorPostOrder() throws BinaryTreeExceptions {
 
         if (isEmpty()) {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         UnorderedArray<T> list = new UnorderedArray<>();
@@ -157,7 +157,7 @@ abstract class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
     public Iterator<T> iteratorLevelOrder() throws BinaryTreeExceptions {
 
         if (isEmpty()) {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         UnorderedArray<T> list = new UnorderedArray<>();

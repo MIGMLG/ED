@@ -180,3 +180,6 @@ gradle-app.setting
 
 # Ignore text questions
 *.txt
+
+# Ignore pdf files
+*.pdf

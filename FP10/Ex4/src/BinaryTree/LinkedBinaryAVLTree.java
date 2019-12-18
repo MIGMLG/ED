@@ -116,7 +116,7 @@ public class LinkedBinaryAVLTree<T> extends LinkedBinaryTree<T> implements Binar
                 root = checkAllNodesBalance(root);
             }
         } else {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         return result;
@@ -168,7 +168,7 @@ public class LinkedBinaryAVLTree<T> extends LinkedBinaryTree<T> implements Binar
     @Override
     public T removeMin() throws BinaryTreeExceptions {
         if (isEmpty()) {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         return removeElement(findMin());
@@ -177,7 +177,7 @@ public class LinkedBinaryAVLTree<T> extends LinkedBinaryTree<T> implements Binar
     @Override
     public T removeMax() throws BinaryTreeExceptions {
         if (isEmpty()) {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         return removeElement(findMax());
@@ -187,7 +187,7 @@ public class LinkedBinaryAVLTree<T> extends LinkedBinaryTree<T> implements Binar
     public T findMin() throws BinaryTreeExceptions {
 
         if (isEmpty()) {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         BinaryAVLTreeNode<T> found = root;
@@ -202,7 +202,7 @@ public class LinkedBinaryAVLTree<T> extends LinkedBinaryTree<T> implements Binar
     @Override
     public T findMax() throws BinaryTreeExceptions {
         if (isEmpty()) {
-            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_LIST);
+            throw new BinaryTreeExceptions(BinaryTreeExceptions.EMPTY_TREE);
         }
 
         BinaryAVLTreeNode<T> found = root;

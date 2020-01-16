@@ -1,6 +1,6 @@
 package Demo;
 
-import Graph.Graph;
+import Graph.GraphInMatrix;
 
 import java.util.Iterator;
 
@@ -9,13 +9,13 @@ import Graph.GraphExceptions;
 public class demo {
 
     public static void tests(int test) throws GraphExceptions {
-        Graph<Integer> graph;
+        GraphInMatrix<Integer> graph;
         Iterator<Integer> itr;
 
         switch (test) {
             // Add Test
             case 1:
-                graph = new Graph();
+                graph = new GraphInMatrix();
                 graph.addVertex(1);
                 graph.addVertex(2);
                 graph.addVertex(3);
@@ -30,7 +30,7 @@ public class demo {
                 break;
             //ShortestPath Not Found Test
             case 2:
-                graph = new Graph();
+                graph = new GraphInMatrix();
                 graph.addVertex(1);
                 graph.addVertex(2);
                 graph.addVertex(3);
@@ -50,7 +50,7 @@ public class demo {
                 break;
             //ShortestPath Found Test
             case 3:
-                graph = new Graph();
+                graph = new GraphInMatrix();
                 graph.addVertex(1);
                 graph.addVertex(2);
                 graph.addVertex(3);
@@ -70,7 +70,7 @@ public class demo {
                 break;
             // Remove Test
             case 4:
-                graph = new Graph();
+                graph = new GraphInMatrix();
                 graph.addVertex(1);
                 graph.addVertex(2);
                 graph.addVertex(3);
@@ -86,7 +86,7 @@ public class demo {
                 System.out.println(graph.toString());
                 // BFS Itr Test
             case 5:
-                graph = new Graph();
+                graph = new GraphInMatrix();
                 graph.addVertex(1);
                 graph.addVertex(2);
                 graph.addVertex(3);
@@ -105,7 +105,7 @@ public class demo {
                 break;
             // Connected Test
             case 6:
-                graph = new Graph();
+                graph = new GraphInMatrix();
                 graph.addVertex(1);
                 graph.addVertex(2);
                 graph.addVertex(3);
@@ -115,6 +115,7 @@ public class demo {
                 graph.addEdge(2, 2);
                 graph.addEdge(1, 1);
                 graph.addEdge(4, 4);
+                graph.addEdge(4, 3);
                 graph.addEdge(1, 4);
                 System.out.println(graph.toString());
                 System.out.println("\nExcepted: True. Result : " + graph.isConnected());

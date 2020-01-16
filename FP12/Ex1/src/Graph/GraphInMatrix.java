@@ -7,7 +7,7 @@ import Stack.LinkedStack;
 
 import java.util.Iterator;
 
-public class Graph<T> implements GraphADT<T> {
+public class GraphInMatrix<T> implements GraphADT<T> {
 
     protected final int DEFAULT_CAPACITY = 4;
     protected int numVertices; // number of vertices in the graph
@@ -17,7 +17,7 @@ public class Graph<T> implements GraphADT<T> {
     /**
      * Creates an empty graph.
      */
-    public Graph() {
+    public GraphInMatrix() {
         numVertices = 0;
         this.adjMatrix = new boolean[DEFAULT_CAPACITY][DEFAULT_CAPACITY];
         this.vertices = (T[]) (new Object[DEFAULT_CAPACITY]);

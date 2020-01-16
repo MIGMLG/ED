@@ -1,21 +1,21 @@
 package Demo;
 
-import Graph.GraphInMatrix;
-
 import java.util.Iterator;
 
+import Graph.GraphADT;
 import Graph.GraphExceptions;
+import Graph.GraphInLists;
 
 public class demo {
 
     public static void tests(int test) throws GraphExceptions {
-        GraphInMatrix<Integer> graph;
+        GraphADT<Integer> graph;
         Iterator<Integer> itr;
 
         switch (test) {
             // Add Test
             case 1:
-                graph = new GraphInMatrix();
+                graph = new GraphInLists();
                 graph.addVertex(1);
                 graph.addVertex(2);
                 graph.addVertex(3);
@@ -30,7 +30,7 @@ public class demo {
                 break;
             //ShortestPath Not Found Test
             case 2:
-                graph = new GraphInMatrix();
+                graph = new GraphInLists();
                 graph.addVertex(1);
                 graph.addVertex(2);
                 graph.addVertex(3);
@@ -50,7 +50,7 @@ public class demo {
                 break;
             //ShortestPath Found Test
             case 3:
-                graph = new GraphInMatrix();
+                graph = new GraphInLists();
                 graph.addVertex(1);
                 graph.addVertex(2);
                 graph.addVertex(3);
@@ -70,7 +70,7 @@ public class demo {
                 break;
             // Remove Test
             case 4:
-                graph = new GraphInMatrix();
+                graph = new GraphInLists();
                 graph.addVertex(1);
                 graph.addVertex(2);
                 graph.addVertex(3);
@@ -79,14 +79,18 @@ public class demo {
                 graph.addEdge(2, 4);
                 graph.addEdge(2, 2);
                 graph.addEdge(1, 1);
+                graph.addEdge(4, 3);
+                graph.addEdge(3, 1);
+                graph.addEdge(3, 3);
                 graph.addEdge(4, 4);
                 graph.addEdge(1, 4);
                 System.out.println(graph.toString());
                 graph.removeVertex(3);
                 System.out.println(graph.toString());
-                // BFS Itr Test
+                break;
+            // BFS Itr Test
             case 5:
-                graph = new GraphInMatrix();
+                graph = new GraphInLists();
                 graph.addVertex(1);
                 graph.addVertex(2);
                 graph.addVertex(3);
@@ -105,7 +109,7 @@ public class demo {
                 break;
             // Connected Test
             case 6:
-                graph = new GraphInMatrix();
+                graph = new GraphInLists();
                 graph.addVertex(1);
                 graph.addVertex(2);
                 graph.addVertex(3);
@@ -120,6 +124,23 @@ public class demo {
                 System.out.println(graph.toString());
                 System.out.println("\nExcepted: True. Result : " + graph.isConnected());
                 break;
+            case 7:
+                graph = new GraphInLists();
+                graph.addVertex(1);
+                graph.addVertex(2);
+                graph.addVertex(3);
+                graph.addVertex(4);
+                graph.addEdge(1, 2);
+                graph.addEdge(2, 4);
+                graph.addEdge(2, 2);
+                graph.addEdge(1, 1);
+                graph.addEdge(4, 4);
+                graph.addEdge(4, 3);
+                graph.addEdge(1, 4);
+                System.out.println(graph.toString());
+                graph.removeEdge(1, 4);
+                System.out.println(graph.toString());
+                break;
             default:
                 break;
         }
@@ -127,10 +148,11 @@ public class demo {
     }
 
     public static void main(String[] args) throws GraphExceptions {
-        System.out.println("----------------------------------");
+        /*System.out.println("----------------------------------");
         for (int i = 1; i <= 6; ++i){
             tests(i);
             System.out.println("----------------------------------");
-        }
+        }*/
+        tests(7);
     }
 }

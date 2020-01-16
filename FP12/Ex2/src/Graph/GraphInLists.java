@@ -4,6 +4,7 @@ import Lists.UnorderedArray;
 import Lists.UnorderedListADT;
 import Queue.LinkedQueue;
 import Stack.EmptyCollectionException;
+import Stack.LinkedStack;
 
 import java.util.Iterator;
 
@@ -135,8 +136,48 @@ public class GraphInLists<T> implements GraphADT<T> {
     }
 
     @Override
-    public Iterator iteratorDFS(T startVertex) {
-        return null;
+    public Iterator iteratorDFS(T startVertex) throws EmptyCollectionException {
+        LinkedStack<GraphNode<T>> traversalStack = new LinkedStack();
+        UnorderedArray<T> resultList = new UnorderedArray();
+        GraphNode<T> tmpNode;
+        GraphNode<T> startNode;
+        boolean found;
+
+        try {
+            startNode = this.getGraph(startVertex);
+        } catch (GraphExceptions graphExceptions) {
+            return resultList.iterator();
+        }
+
+        UnorderedListADT<GraphNode<T>> visited = new UnorderedArray<>();
+
+        traversalStack.push(startNode);
+        resultList.addToRear(startNode.element);
+        visited.addToRear(startNode);
+
+        while (!traversalStack.isEmpty()) {
+            tmpNode = traversalStack.peek();
+            found = false;
+
+            /** Find a vertex adjacent to x that has not been visited
+             and push it on the stack */
+
+            Iterator<GraphNode<T>> itrEdges = tmpNode.edgeList.iterator();
+            while (itrEdges.hasNext() && !found) {
+                GraphNode<T> nextNode = itrEdges.next();
+                if (!visited.contains(nextNode)) {
+                    traversalStack.push(nextNode);
+                    resultList.addToRear(nextNode.element);
+                    visited.addToRear(nextNode);
+                    found = true;
+                }
+            }
+            if (!found && !traversalStack.isEmpty()) {
+                traversalStack.pop();
+            }
+        }
+
+        return resultList.iterator();
     }
 
     @Override

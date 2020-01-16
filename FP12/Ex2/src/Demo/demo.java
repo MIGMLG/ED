@@ -5,10 +5,11 @@ import java.util.Iterator;
 import Graph.GraphADT;
 import Graph.GraphExceptions;
 import Graph.GraphInLists;
+import Stack.EmptyCollectionException;
 
 public class demo {
 
-    public static void tests(int test) throws GraphExceptions {
+    public static void tests(int test) throws GraphExceptions, EmptyCollectionException {
         GraphADT<Integer> graph;
         Iterator<Integer> itr;
 
@@ -98,6 +99,7 @@ public class demo {
                 graph.addEdge(1, 2);
                 graph.addEdge(2, 4);
                 graph.addEdge(2, 2);
+                graph.addEdge(2, 3);
                 graph.addEdge(1, 1);
                 graph.addEdge(4, 4);
                 graph.addEdge(1, 4);
@@ -142,18 +144,36 @@ public class demo {
                 graph.removeEdge(1, 4);
                 System.out.println(graph.toString());
                 break;
+            // DFS Itr Test
+            case 8:
+                graph = new GraphInLists();
+                graph.addVertex(1);
+                graph.addVertex(2);
+                graph.addVertex(3);
+                graph.addVertex(4);
+                graph.addEdge(1, 2);
+                graph.addEdge(2, 3);
+                graph.addEdge(3, 4);
+                graph.addEdge(1, 4);
+                graph.addEdge(4, 2);
+                System.out.println(graph.toString());
+                itr = graph.iteratorDFS(4);
+                while (itr.hasNext()) {
+                    System.out.println(itr.next());
+                }
+                break;
             default:
                 break;
         }
 
     }
 
-    public static void main(String[] args) throws GraphExceptions {
+    public static void main(String[] args) throws GraphExceptions, EmptyCollectionException {
         /*System.out.println("----------------------------------");
         for (int i = 1; i <= 6; ++i){
             tests(i);
             System.out.println("----------------------------------");
         }*/
-        tests(6);
+        tests(8);
     }
 }

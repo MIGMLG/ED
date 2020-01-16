@@ -212,7 +212,62 @@ public class Graph<T> implements GraphADT<T> {
 
     @Override
     public Iterator iteratorShortestPath(T startVertex, T targetVertex) {
-        return null;
+        Integer x;
+        LinkedQueue<Integer> traversalQueue = new LinkedQueue<Integer>();
+        UnorderedArray<T> resultList = new UnorderedArray<>();
+        int startIndex = getIndex(startVertex);
+        int targetIndex = getIndex(targetVertex);
+        int[][] info = new int[vertices.length][3];
+        boolean found = false;
+        int counter = 0;
+
+        if (!indexIsValid(startIndex) || !indexIsValid(targetIndex)) {
+            return resultList.iterator();
+        }
+
+        boolean[] visited = new boolean[numVertices];
+        for (int i = 0; i < numVertices; i++) {
+            visited[i] = false;
+        }
+
+        traversalQueue.enqueue(new Integer(startIndex));
+        //Index of Vertex
+        info[counter][0] = startIndex;
+        //PathLength
+        info[counter][1] = 0;
+        //LastVertex
+        info[counter][2] = -1;
+        visited[startIndex] = true;
+
+        while (!found && !traversalQueue.isEmpty()) {
+            x = traversalQueue.dequeue();
+            /** Find all vertices adjacent to x that have
+             not been visited and queue them up */
+            for (int i = 0; i < numVertices; i++) {
+                if (adjMatrix[x.intValue()][i] && !visited[i]) {
+                    traversalQueue.enqueue(new Integer(i));
+                    counter++;
+                    info[counter][0] = i;
+                    info[counter][1] = info[x.intValue()][1] + 1;
+                    info[counter][2] = info[x.intValue()][0];
+                    visited[i] = true;
+                    if (i == targetIndex) {
+                        found = true;
+                    }
+                }
+            }
+        }
+
+        if (found) {
+            resultList.addToFront(vertices[info[counter][0]]);
+            int lastIndex = info[counter][2];
+            while (lastIndex != -1){
+                resultList.addToFront(vertices[info[lastIndex][0]]);
+                lastIndex = info[lastIndex][2];
+            }
+
+        }
+        return resultList.iterator();
     }
 
     @Override
@@ -229,7 +284,7 @@ public class Graph<T> implements GraphADT<T> {
         Iterator itr = iteratorBFS(0);
         int counter = 0;
 
-        while (itr.hasNext()){
+        while (itr.hasNext()) {
             itr.next();
             counter++;
         }

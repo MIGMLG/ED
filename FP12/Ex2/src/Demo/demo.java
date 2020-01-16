@@ -153,6 +153,6 @@ public class demo {
             tests(i);
             System.out.println("----------------------------------");
         }*/
-        tests(7);
+        tests(5);
     }
 }

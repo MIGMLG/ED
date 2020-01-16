@@ -43,7 +43,7 @@ public interface GraphADT<T> {
      * @return a breadth first iterator beginning at
      * the given vertex
      */
-    public Iterator iteratorBFS(T startVertex);
+    public Iterator iteratorBFS(T startVertex) throws GraphExceptions;
 
     /**
      * Returns a depth first iterator starting with the given vertex.

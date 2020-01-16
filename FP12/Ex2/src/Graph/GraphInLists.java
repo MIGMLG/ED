@@ -2,6 +2,7 @@ package Graph;
 
 import Lists.UnorderedArray;
 import Lists.UnorderedListADT;
+import Queue.LinkedQueue;
 import Stack.EmptyCollectionException;
 
 import java.util.Iterator;
@@ -98,7 +99,39 @@ public class GraphInLists<T> implements GraphADT<T> {
 
     @Override
     public Iterator iteratorBFS(T startVertex) {
-        return null;
+        LinkedQueue<GraphNode<T>> traversalQueue = new LinkedQueue<GraphNode<T>>();
+        UnorderedArray<T> resultList = new UnorderedArray<>();
+        GraphNode<T> tmpNode;
+        GraphNode<T> startNode;
+
+        try {
+            startNode = this.getGraph(startVertex);
+        } catch (GraphExceptions graphExceptions) {
+            return resultList.iterator();
+        }
+
+        UnorderedListADT<GraphNode<T>> visited = new UnorderedArray<>();
+
+        traversalQueue.enqueue(startNode);
+        visited.addToRear(startNode);
+
+        while (!traversalQueue.isEmpty()) {
+            tmpNode = traversalQueue.dequeue();
+            resultList.addToRear(tmpNode.element);
+
+            /** Find all vertices adjacent to x that have
+             not been visited and queue them up */
+            Iterator<GraphNode<T>> itrEdges = tmpNode.edgeList.iterator();
+            while (itrEdges.hasNext()) {
+                GraphNode<T> nextNode = itrEdges.next();
+                if (!visited.contains(nextNode)) {
+                    traversalQueue.enqueue(nextNode);
+                    visited.addToRear(nextNode);
+                }
+            }
+        }
+
+        return resultList.iterator();
     }
 
     @Override

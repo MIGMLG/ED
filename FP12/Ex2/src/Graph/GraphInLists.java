@@ -181,8 +181,83 @@ public class GraphInLists<T> implements GraphADT<T> {
     }
 
     @Override
-    public Iterator iteratorShortestPath(T startVertex, T targetVertex) {
-        return null;
+    public Iterator iteratorShortestPath(T startVertex, T targetVertex) throws GraphExceptions {
+        LinkedQueue<GraphNode<T>> traversalQueue = new LinkedQueue<GraphNode<T>>();
+        UnorderedArray<T> resultList = new UnorderedArray<>();
+        GraphNode<T> tmpNode;
+        GraphNode<T> startNode;
+        GraphNode<T> targetNode;
+        int[][] info = new int[numVertices][3];
+        boolean found = false;
+        int counterArrayPosition = 0;
+        int counterVisited = 0;
+
+        try {
+            startNode = this.getGraph(startVertex);
+            targetNode = this.getGraph(targetVertex);
+        } catch (GraphExceptions graphExceptions) {
+            return resultList.iterator();
+        }
+
+        UnorderedListADT<GraphNode<T>> visited = new UnorderedArray<>();
+
+        traversalQueue.enqueue(startNode);
+        //Index of Vertex
+        info[counterArrayPosition][0] = startNode.hashCode();
+        //PathLength
+        info[counterArrayPosition][1] = 0;
+        //LastVertex
+        info[counterArrayPosition][2] = -1;
+        visited.addToRear(startNode);
+
+        while (!found && !traversalQueue.isEmpty()) {
+            tmpNode = traversalQueue.dequeue();
+
+            /** Find all vertices adjacent to x that have
+             not been visited and queue them up */
+            Iterator<GraphNode<T>> itrEdges = tmpNode.edgeList.iterator();
+            while (itrEdges.hasNext()) {
+                GraphNode<T> nextNode = itrEdges.next();
+                if (!visited.contains(nextNode)) {
+                    traversalQueue.enqueue(nextNode);
+                    counterArrayPosition++;
+                    info[counterArrayPosition][0] = nextNode.hashCode();
+                    info[counterArrayPosition][1] = info[counterVisited][1] + 1;
+                    info[counterArrayPosition][2] = counterVisited;
+                    visited.addToRear(nextNode);
+                    if (nextNode.equals(targetNode)) {
+                        found = true;
+                        break;
+                    }
+                }
+            }
+
+            counterVisited++;
+        }
+
+        if (found) {
+            resultList.addToFront(getNodeFromHash(info[counterArrayPosition][0]).element);
+            int lastIndex = info[counterArrayPosition][2];
+            while (lastIndex != -1) {
+                resultList.addToFront(getNodeFromHash(info[lastIndex][0]).element);
+                lastIndex = info[lastIndex][2];
+            }
+
+        }
+        return resultList.iterator();
+    }
+
+    private GraphNode<T> getNodeFromHash(int hash) throws GraphExceptions {
+        Iterator<GraphNode<T>> itr = nodesList.iterator();
+
+        while (itr.hasNext()) {
+            GraphNode<T> tmpGraphNode = itr.next();
+            if (tmpGraphNode.hashCode() == hash) {
+                return tmpGraphNode;
+            }
+        }
+
+        throw new GraphExceptions(GraphExceptions.ELEMENT_NOT_FOUND);
     }
 
     @Override

@@ -169,11 +169,10 @@ public class demo {
     }
 
     public static void main(String[] args) throws GraphExceptions, EmptyCollectionException {
-        /*System.out.println("----------------------------------");
-        for (int i = 1; i <= 6; ++i){
+        System.out.println("----------------------------------");
+        for (int i = 1; i <= 8; ++i){
             tests(i);
             System.out.println("----------------------------------");
-        }*/
-        tests(8);
+        }
     }
 }

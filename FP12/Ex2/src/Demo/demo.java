@@ -124,6 +124,7 @@ public class demo {
                 System.out.println(graph.toString());
                 System.out.println("\nExcepted: True. Result : " + graph.isConnected());
                 break;
+            //Remove Edge Test
             case 7:
                 graph = new GraphInLists();
                 graph.addVertex(1);
@@ -153,6 +154,6 @@ public class demo {
             tests(i);
             System.out.println("----------------------------------");
         }*/
-        tests(5);
+        tests(6);
     }
 }

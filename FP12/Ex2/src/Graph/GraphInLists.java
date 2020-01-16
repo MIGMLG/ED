@@ -135,7 +135,7 @@ public class GraphInLists<T> implements GraphADT<T> {
     }
 
     @Override
-    public Iterator iteratorDFS(T startVertex) throws EmptyCollectionException {
+    public Iterator iteratorDFS(T startVertex) {
         return null;
     }
 
@@ -151,7 +151,19 @@ public class GraphInLists<T> implements GraphADT<T> {
 
     @Override
     public boolean isConnected() throws GraphExceptions {
-        return false;
+        if (isEmpty()) {
+            throw new GraphExceptions(GraphExceptions.EMPTY_GRAPH);
+        }
+
+        Iterator itr = iteratorBFS(nodesList.first().element);
+        int counter = 0;
+
+        while (itr.hasNext()) {
+            itr.next();
+            counter++;
+        }
+
+        return (counter == numVertices);
     }
 
     @Override

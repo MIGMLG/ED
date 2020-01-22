@@ -5,9 +5,7 @@ import Graph.*;
 import Lists.UnorderedArray;
 import Lists.UnorderedListADT;
 import PriorityQueue.PriorityQueue;
-import Queue.LinkedQueue;
 
-import java.util.Arrays;
 import java.util.Iterator;
 
 public class NetworkInMatrix<T> extends GraphInMatrix<T> implements NetworkADT<T> {
@@ -32,21 +30,9 @@ public class NetworkInMatrix<T> extends GraphInMatrix<T> implements NetworkADT<T
         numVertices++;
     }
 
-    private void expandCapacity() {
-        T[] tmp = (T[]) (new Object[vertices.length + DEFAULT_CAPACITY]);
-        for (int i = 0; i < vertices.length; i++) {
-            tmp[i] = vertices[i];
-        }
-        vertices = tmp;
-
-        boolean[][] tmpAdjMatrix = new boolean[vertices.length + DEFAULT_CAPACITY][vertices.length + DEFAULT_CAPACITY];
-        for (int i = 0; i < adjMatrix.length; i++) {
-            for (int j = 0; j < adjMatrix.length; j++) {
-                tmpAdjMatrix[i][j] = adjMatrix[i][j];
-            }
-        }
-
-        adjMatrix = tmpAdjMatrix;
+    @Override
+    protected void expandCapacity() {
+        super.expandCapacity();
 
         double[][] tmpWeightMatrix = new double[vertices.length + DEFAULT_CAPACITY][vertices.length + DEFAULT_CAPACITY];
         for (int i = 0; i < weightMatrix.length; i++) {
@@ -60,39 +46,24 @@ public class NetworkInMatrix<T> extends GraphInMatrix<T> implements NetworkADT<T
 
     @Override
     public void removeVertex(T vertex) throws GraphExceptions {
-
-        if (isEmpty()) {
-            throw new GraphExceptions(GraphExceptions.EMPTY_GRAPH);
-        }
-
         int index = getIndex(vertex);
 
-        if (index == -1) {
-            throw new GraphExceptions(GraphExceptions.ELEMENT_NOT_FOUND);
-        }
-
-        for (int i = index; i < numVertices - 1; i++) {
-            for (int j = 0; j < numVertices; j++) {
-                adjMatrix[j][i] = adjMatrix[j][i + 1];
-                weightMatrix[j][i] = weightMatrix[j][i + 1];
+        if (index != -1) {
+            for (int i = index; i < numVertices - 1; i++) {
+                for (int j = 0; j < numVertices; j++) {
+                    weightMatrix[j][i] = weightMatrix[j][i + 1];
+                }
             }
 
-        }
+            for (int i = index; i < numVertices - 1; i++) {
+                for (int j = 0; j < numVertices; j++) {
+                    weightMatrix[i][j] = weightMatrix[i + 1][j];
+                }
 
-        for (int i = index; i < numVertices - 1; i++) {
-            for (int j = 0; j < numVertices; j++) {
-                adjMatrix[i][j] = adjMatrix[i + 1][j];
-                weightMatrix[i][j] = weightMatrix[i + 1][j];
             }
-
         }
 
-        for (int h = index; h < numVertices - 1; h++) {
-            vertices[h] = vertices[h + 1];
-        }
-
-        numVertices--;
-
+        super.removeVertex(vertex);
     }
 
     @Override
@@ -100,45 +71,42 @@ public class NetworkInMatrix<T> extends GraphInMatrix<T> implements NetworkADT<T
         int indexVertex1 = getIndex(vertex1);
         int indexVertex2 = getIndex(vertex2);
 
-        if (indexIsValid(indexVertex1) && indexIsValid(indexVertex2)) {
-            addEdge(vertex1, vertex2);
-            weightMatrix[indexVertex1][indexVertex2] = weight;
-            weightMatrix[indexVertex2][indexVertex1] = weight;
-        } else {
-            throw new GraphExceptions(GraphExceptions.ELEMENT_NOT_FOUND);
-        }
+        super.addEdge(vertex1, vertex2);
+        weightMatrix[indexVertex1][indexVertex2] = weight;
+        weightMatrix[indexVertex2][indexVertex1] = weight;
     }
 
     @Override
-    public void removeEdge(T vertex1, T vertex2) {
+    public void removeEdge(T vertex1, T vertex2) throws GraphExceptions {
         int indexVertex1 = getIndex(vertex1);
         int indexVertex2 = getIndex(vertex2);
 
-        if (indexIsValid(indexVertex1) && indexIsValid(indexVertex2)) {
-            adjMatrix[indexVertex1][indexVertex2] = false;
-            adjMatrix[indexVertex2][indexVertex1] = false;
-            weightMatrix[indexVertex1][indexVertex2] = 0;
-            weightMatrix[indexVertex2][indexVertex1] = 0;
-        }
+        super.removeEdge(vertex1, vertex2);
+        weightMatrix[indexVertex1][indexVertex2] = 0;
+        weightMatrix[indexVertex2][indexVertex1] = 0;
 
     }
 
     @Override
-    public Iterator iteratorShortestPath(T startVertex, T targetVertex) throws BinaryTreeExceptions, GraphExceptions {
+    public Iterator iteratorShortestPath(T startVertex, T targetVertex) throws BinaryTreeExceptions {
         UnorderedArray<T> resultList = new UnorderedArray<>();
 
         if (!indexIsValid(getIndex(startVertex))) {
             return resultList.iterator();
         }
 
-        Pair<T> lastPair = findLastPairInShortestPair(startVertex, targetVertex);
+        Pair<T> lastPair = null;
+        try {
+            lastPair = findLastPairInShortestPair(startVertex, targetVertex);
+            while (lastPair != null) {
+                resultList.addToFront(lastPair.vertex);
+                lastPair = lastPair.previous;
+            }
 
-        while (lastPair != null){
-            resultList.addToFront(lastPair.vertex);
-            lastPair = lastPair.previous;
+            return resultList.iterator();
+        } catch (GraphExceptions graphExceptions) {
+            return resultList.iterator();
         }
-
-        return resultList.iterator();
     }
 
     private Pair<T> findLastPairInShortestPair(T startVertex, T targetVertex) throws BinaryTreeExceptions, GraphExceptions {
@@ -183,6 +151,7 @@ public class NetworkInMatrix<T> extends GraphInMatrix<T> implements NetworkADT<T
     @Override
     public String toString() {
         String text = "";
+        text += super.toString() + "\n";
 
         for (int i = 0; i < numVertices; i++) {
             for (int j = 0; j < numVertices; j++) {

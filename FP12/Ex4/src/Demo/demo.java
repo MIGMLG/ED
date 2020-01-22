@@ -175,11 +175,12 @@ public class demo {
                 graph.addEdge(1, 4, 8);
                 graph.addEdge(4, 3, 6);
                 System.out.println(graph.toString());
-                System.out.println(graph.toString());
                 itr = graph.iteratorDFS(1);
                 while (itr.hasNext()) {
-                    System.out.println(itr.next());
+                    System.out.print("->");
+                    System.out.print(itr.next());
                 }
+                System.out.println();
                 break;
             case 10:
                 graph = new NetworkInMatrix<>();
@@ -213,8 +214,10 @@ public class demo {
                 System.out.println(graph.toString());
                 itr = graph.iteratorShortestPath(1,3);
                 while (itr.hasNext()) {
-                    System.out.println(itr.next());
+                    System.out.print("->");
+                    System.out.print(itr.next());
                 }
+                System.out.println();
                 break;
             default:
                 break;
@@ -225,6 +228,7 @@ public class demo {
     public static void main(String[] args) throws GraphExceptions, EmptyCollectionException, BinaryTreeExceptions {
         System.out.println("----------------------------------");
         for (int i = 1; i <= 11; ++i) {
+            System.out.println("Teste " + i + " :\n");
             tests(i);
             System.out.println("----------------------------------");
         }

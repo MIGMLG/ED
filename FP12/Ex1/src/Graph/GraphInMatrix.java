@@ -1,5 +1,6 @@
 package Graph;
 
+import BinaryTree.BinaryTreeExceptions;
 import Lists.UnorderedArray;
 import Queue.LinkedQueue;
 import Stack.EmptyCollectionException;
@@ -37,7 +38,7 @@ public class GraphInMatrix<T> implements GraphADT<T> {
         numVertices++;
     }
 
-    private void expandCapacity() {
+    protected void expandCapacity() {
         T[] tmp = (T[]) (new Object[vertices.length + DEFAULT_CAPACITY]);
         for (int i = 0; i < vertices.length; i++) {
             tmp[i] = vertices[i];
@@ -107,14 +108,16 @@ public class GraphInMatrix<T> implements GraphADT<T> {
     }
 
     @Override
-    public void addEdge(T vertex1, T vertex2) {
+    public void addEdge(T vertex1, T vertex2) throws GraphExceptions {
         addEdge(getIndex(vertex1), getIndex(vertex2));
     }
 
-    private void addEdge(int index1, int index2) {
+    private void addEdge(int index1, int index2) throws GraphExceptions {
         if (indexIsValid(index1) && indexIsValid(index2)) {
             adjMatrix[index1][index2] = true;
             adjMatrix[index2][index1] = true;
+        } else {
+            throw new GraphExceptions(GraphExceptions.ELEMENT_NOT_FOUND);
         }
     }
 
@@ -126,14 +129,16 @@ public class GraphInMatrix<T> implements GraphADT<T> {
     }
 
     @Override
-    public void removeEdge(T vertex1, T vertex2) {
+    public void removeEdge(T vertex1, T vertex2) throws GraphExceptions {
         removeEdge(getIndex(vertex1), getIndex(vertex2));
     }
 
-    private void removeEdge(int index1, int index2) {
+    private void removeEdge(int index1, int index2) throws GraphExceptions {
         if (indexIsValid(index1) && indexIsValid(index2)) {
             adjMatrix[index1][index2] = false;
             adjMatrix[index2][index1] = false;
+        } else {
+            throw new GraphExceptions(GraphExceptions.ELEMENT_NOT_FOUND);
         }
     }
 
@@ -221,7 +226,7 @@ public class GraphInMatrix<T> implements GraphADT<T> {
     }
 
     @Override
-    public Iterator iteratorShortestPath(T startVertex, T targetVertex) {
+    public Iterator iteratorShortestPath(T startVertex, T targetVertex) throws BinaryTreeExceptions, GraphExceptions {
         Integer x;
         LinkedQueue<Integer> traversalQueue = new LinkedQueue<Integer>();
         UnorderedArray<T> resultList = new UnorderedArray<>();

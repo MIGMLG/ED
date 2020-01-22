@@ -98,6 +98,7 @@ public class GraphInMatrix<T> implements GraphADT<T> {
             if (vertex.equals(vertices[current])) {
                 found = true;
                 position = current;
+                break;
             }
             current++;
         }

@@ -189,7 +189,7 @@ public class demo {
     public static void main(String[] args) throws GraphExceptions, EmptyCollectionException {
         System.out.println("----------------------------------");
         for (int i = 1; i <= 9; ++i) {
-            tests(5);
+            tests(i);
             System.out.println("----------------------------------");
         }
     }

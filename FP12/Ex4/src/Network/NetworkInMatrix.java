@@ -1,8 +1,14 @@
 package Network;
 
+import BinaryTree.BinaryTreeExceptions;
 import Graph.*;
+import Lists.UnorderedArray;
+import Lists.UnorderedListADT;
+import PriorityQueue.PriorityQueue;
+import Queue.LinkedQueue;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class NetworkInMatrix<T> extends GraphInMatrix<T> implements NetworkADT<T> {
 
@@ -118,8 +124,60 @@ public class NetworkInMatrix<T> extends GraphInMatrix<T> implements NetworkADT<T
     }
 
     @Override
-    public double shortestPathWeight(T vertex1, T vertex2) {
-        return 0;
+    public Iterator iteratorShortestPath(T startVertex, T targetVertex) throws BinaryTreeExceptions, GraphExceptions {
+        UnorderedArray<T> resultList = new UnorderedArray<>();
+
+        if (!indexIsValid(getIndex(startVertex))) {
+            return resultList.iterator();
+        }
+
+        Pair<T> lastPair = findLastPairInShortestPair(startVertex, targetVertex);
+
+        while (lastPair != null){
+            resultList.addToFront(lastPair.vertex);
+            lastPair = lastPair.previous;
+        }
+
+        return resultList.iterator();
+    }
+
+    private Pair<T> findLastPairInShortestPair(T startVertex, T targetVertex) throws BinaryTreeExceptions, GraphExceptions {
+        PriorityQueue<Pair<T>> priorityQueue = new PriorityQueue<Pair<T>>();
+        UnorderedListADT<T> verticesInPath = new UnorderedArray<>();
+        Pair<T> startPair = new Pair<>(null, startVertex, 0.0);
+
+        priorityQueue.addElement(startPair, (int) startPair.cost);
+
+        while (!priorityQueue.isEmpty()) {
+            Pair<T> pair = priorityQueue.removeNext();
+            T vertex = pair.vertex;
+            double minCostToVertex = pair.cost;
+
+            if (vertex.equals(targetVertex)) {
+                return pair;
+            }
+
+            verticesInPath.addToRear(vertex);
+
+            for (int i = 0; i < numVertices; ++i) {
+                if (adjMatrix[getIndex(vertex)][i] && !verticesInPath.contains(vertices[i])) {
+                    double minCostToI = minCostToVertex + weightMatrix[getIndex(vertex)][i];
+                    Pair<T> tmpPair = new Pair<>(pair, vertices[i], minCostToI);
+                    priorityQueue.addElement(tmpPair, (int) tmpPair.cost);
+                }
+            }
+        }
+
+        throw new GraphExceptions(GraphExceptions.PATH_NOT_FOUND);
+    }
+
+    @Override
+    public double shortestPathWeight(T vertex1, T vertex2) throws BinaryTreeExceptions, GraphExceptions {
+        if (!indexIsValid(getIndex(vertex1))) {
+            throw new GraphExceptions(GraphExceptions.ELEMENT_NOT_FOUND);
+        }
+
+        return findLastPairInShortestPair(vertex1, vertex2).cost;
     }
 
     @Override

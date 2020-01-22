@@ -1,5 +1,6 @@
 package Graph;
 
+import BinaryTree.BinaryTreeExceptions;
 import Lists.UnorderedArray;
 import Queue.LinkedQueue;
 import Stack.EmptyCollectionException;
@@ -221,7 +222,7 @@ public class GraphInMatrix<T> implements GraphADT<T> {
     }
 
     @Override
-    public Iterator iteratorShortestPath(T startVertex, T targetVertex) {
+    public Iterator iteratorShortestPath(T startVertex, T targetVertex) throws BinaryTreeExceptions, GraphExceptions {
         Integer x;
         LinkedQueue<Integer> traversalQueue = new LinkedQueue<Integer>();
         UnorderedArray<T> resultList = new UnorderedArray<>();

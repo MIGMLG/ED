@@ -1,5 +1,6 @@
 package Demo;
 
+import BinaryTree.BinaryTreeExceptions;
 import Graph.GraphInMatrix;
 
 import java.util.Iterator;
@@ -11,7 +12,7 @@ import Stack.EmptyCollectionException;
 
 public class demo {
 
-    public static void tests(int test) throws GraphExceptions, EmptyCollectionException {
+    public static void tests(int test) throws GraphExceptions, EmptyCollectionException, BinaryTreeExceptions {
         NetworkADT<Integer> graph;
         Iterator<Integer> itr;
 
@@ -180,15 +181,50 @@ public class demo {
                     System.out.println(itr.next());
                 }
                 break;
+            case 10:
+                graph = new NetworkInMatrix<>();
+                graph.addVertex(1);
+                graph.addVertex(2);
+                graph.addVertex(3);
+                graph.addVertex(4);
+                graph.addEdge(1, 2, 3);
+                graph.addEdge(2, 4, 4);
+                graph.addEdge(2, 2, 5);
+                graph.addEdge(1, 1, 6);
+                graph.addEdge(4, 4, 7);
+                graph.addEdge(1, 4, 8);
+                graph.addEdge(4, 3, 6);
+                System.out.println(graph.toString());
+                System.out.println(graph.shortestPathWeight(1,3));
+                break;
+            case 11:
+                graph = new NetworkInMatrix<>();
+                graph.addVertex(1);
+                graph.addVertex(2);
+                graph.addVertex(3);
+                graph.addVertex(4);
+                graph.addEdge(1, 2, 3);
+                graph.addEdge(2, 4, 20);
+                graph.addEdge(2, 2, 5);
+                graph.addEdge(1, 1, 6);
+                graph.addEdge(4, 4, 7);
+                graph.addEdge(1, 4, 8);
+                graph.addEdge(4, 3, 6);
+                System.out.println(graph.toString());
+                itr = graph.iteratorShortestPath(1,3);
+                while (itr.hasNext()) {
+                    System.out.println(itr.next());
+                }
+                break;
             default:
                 break;
         }
 
     }
 
-    public static void main(String[] args) throws GraphExceptions, EmptyCollectionException {
+    public static void main(String[] args) throws GraphExceptions, EmptyCollectionException, BinaryTreeExceptions {
         System.out.println("----------------------------------");
-        for (int i = 1; i <= 9; ++i) {
+        for (int i = 1; i <= 11; ++i) {
             tests(i);
             System.out.println("----------------------------------");
         }

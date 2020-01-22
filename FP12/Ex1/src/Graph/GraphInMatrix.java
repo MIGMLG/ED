@@ -43,6 +43,15 @@ public class GraphInMatrix<T> implements GraphADT<T> {
             tmp[i] = vertices[i];
         }
         vertices = tmp;
+
+        boolean[][] tmpMatrix = new boolean[vertices.length + DEFAULT_CAPACITY][vertices.length + DEFAULT_CAPACITY];
+        for (int i = 0; i < adjMatrix.length; i++) {
+            for (int j = 0; j < adjMatrix.length; j++) {
+                tmpMatrix[i][j] = adjMatrix[i][j];
+            }
+        }
+
+        adjMatrix = tmpMatrix;
     }
 
     @Override
@@ -80,7 +89,7 @@ public class GraphInMatrix<T> implements GraphADT<T> {
 
     }
 
-    private int getIndex(T vertex) {
+    protected int getIndex(T vertex) {
         int position = -1;
         int current = 0;
         boolean found = false;
@@ -108,7 +117,7 @@ public class GraphInMatrix<T> implements GraphADT<T> {
         }
     }
 
-    public boolean indexIsValid(int index) {
+    protected boolean indexIsValid(int index) {
         if (index >= 0 && index < numVertices) {
             return true;
         }
@@ -261,7 +270,7 @@ public class GraphInMatrix<T> implements GraphADT<T> {
         if (found) {
             resultList.addToFront(vertices[info[counter][0]]);
             int lastIndex = info[counter][2];
-            while (lastIndex != -1){
+            while (lastIndex != -1) {
                 resultList.addToFront(vertices[info[lastIndex][0]]);
                 lastIndex = info[lastIndex][2];
             }

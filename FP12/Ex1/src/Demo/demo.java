@@ -120,6 +120,25 @@ public class demo {
                 System.out.println(graph.toString());
                 System.out.println("\nExcepted: True. Result : " + graph.isConnected());
                 break;
+            case 7:
+                graph = new GraphInMatrix();
+                graph.addVertex(1);
+                graph.addVertex(2);
+                graph.addVertex(3);
+                graph.addVertex(4);
+                graph.addEdge(1, 2);
+                graph.addEdge(2, 4);
+                graph.addEdge(2, 2);
+                graph.addEdge(1, 1);
+                graph.addEdge(4, 4);
+                graph.addEdge(4, 3);
+                graph.addEdge(1, 4);
+                System.out.println(graph.toString());
+                graph.addVertex(5);
+                System.out.println(graph.toString());
+                graph.addEdge(1, 5);
+                System.out.println(graph.toString());
+                break;
             default:
                 break;
         }

@@ -11,14 +11,14 @@ public interface GraphADT<T> {
      *
      * @param vertex the vertex to be added to this graph
      */
-    public void addVertex (T vertex);
+    public void addVertex(T vertex);
 
     /**
      * Removes a single vertex with the given value from this graph.
      *
      * @param vertex the vertex to be removed from this graph
      */
-    public void removeVertex (T vertex) throws GraphExceptions;
+    public void removeVertex(T vertex) throws GraphExceptions;
 
     /**
      * Inserts an edge between two vertices of this graph.
@@ -26,7 +26,7 @@ public interface GraphADT<T> {
      * @param vertex1 the first vertex
      * @param vertex2 the second vertex
      */
-    public void addEdge (T vertex1, T vertex2);
+    public void addEdge(T vertex1, T vertex2);
 
     /**
      * Removes an edge between two vertices of this graph.
@@ -34,7 +34,7 @@ public interface GraphADT<T> {
      * @param vertex1 the first vertex
      * @param vertex2 the second vertex
      */
-    public void removeEdge (T vertex1, T vertex2);
+    public void removeEdge(T vertex1, T vertex2);
 
     /**
      * Returns a breadth first iterator starting with the given vertex.

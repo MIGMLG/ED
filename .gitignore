@@ -183,3 +183,6 @@ gradle-app.setting
 
 # Ignore pdf files
 *.pdf
+
+# Ignore Trabalho
+Trabalho

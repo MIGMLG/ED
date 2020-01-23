@@ -47,23 +47,23 @@ public class NetworkInMatrix<T> extends GraphInMatrix<T> implements NetworkADT<T
     @Override
     public void removeVertex(T vertex) throws GraphExceptions {
         int index = getIndex(vertex);
+        super.removeVertex(vertex);
 
-        if (index != -1) {
-            for (int i = index; i < numVertices - 1; i++) {
-                for (int j = 0; j < numVertices; j++) {
-                    weightMatrix[j][i] = weightMatrix[j][i + 1];
-                }
-            }
 
-            for (int i = index; i < numVertices - 1; i++) {
-                for (int j = 0; j < numVertices; j++) {
-                    weightMatrix[i][j] = weightMatrix[i + 1][j];
-                }
-
+        for (int i = index; i < numVertices; i++) {
+            for (int j = 0; j < numVertices + 1; j++) {
+                weightMatrix[j][i] = weightMatrix[j][i + 1];
             }
         }
 
-        super.removeVertex(vertex);
+        for (int i = index; i < numVertices; i++) {
+            for (int j = 0; j < numVertices + 1; j++) {
+                weightMatrix[i][j] = weightMatrix[i + 1][j];
+            }
+
+        }
+
+
     }
 
     @Override

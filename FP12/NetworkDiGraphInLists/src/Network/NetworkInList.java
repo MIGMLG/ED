@@ -5,6 +5,7 @@ import Graph.*;
 import Lists.ListExceptions;
 import Lists.UnorderedArray;
 import Lists.UnorderedListADT;
+import PriorityQueue.PriorityQueue;
 import Queue.LinkedQueue;
 import Stack.EmptyCollectionException;
 import Stack.LinkedStack;
@@ -203,13 +204,69 @@ public class NetworkInList<T> implements NetworkADT<T> {
 
     @Override
     public Iterator iteratorShortestPath(T startVertex, T targetVertex) throws GraphExceptions, ListExceptions {
-        return null;
+        UnorderedArray<T> resultList = new UnorderedArray<>();
+
+        try {
+            getNode(startVertex);
+        } catch (GraphExceptions ex) {
+            return resultList.iterator();
+        }
+
+        Pair<T> lastPair = null;
+        try {
+            lastPair = findLastPairInShortestPair(startVertex, targetVertex);
+            while (lastPair != null) {
+                resultList.addToFront(lastPair.vertex);
+                lastPair = lastPair.previous;
+            }
+
+            return resultList.iterator();
+        } catch (GraphExceptions | BinaryTreeExceptions graphExceptions) {
+            return resultList.iterator();
+        }
+    }
+
+    private Pair<T> findLastPairInShortestPair(T startVertex, T targetVertex) throws BinaryTreeExceptions, GraphExceptions {
+        PriorityQueue<Pair<T>> priorityQueue = new PriorityQueue<Pair<T>>();
+        UnorderedListADT<T> verticesInPath = new UnorderedArray<>();
+        Pair<T> startPair = new Pair<>(null, startVertex, 0.0);
+
+        priorityQueue.addElement(startPair, (int) startPair.cost);
+
+        while (!priorityQueue.isEmpty()) {
+            Pair<T> pair = priorityQueue.removeNext();
+            T vertex = pair.vertex;
+            double minCostToVertex = pair.cost;
+
+            if (vertex.equals(targetVertex)) {
+                return pair;
+            }
+
+            verticesInPath.addToRear(vertex);
+            Iterator<Edge<T>> itr = getNode(vertex).edgeList.iterator();
+
+            while (itr.hasNext()) {
+                Edge<T> tmpEdge = itr.next();
+                if (!verticesInPath.contains(tmpEdge.nodeTo.element)) {
+                    double minCostToI = minCostToVertex + tmpEdge.weight;
+                    Pair<T> tmpPair = new Pair<>(pair, tmpEdge.nodeTo.element, minCostToI);
+                    priorityQueue.addElement(tmpPair, (int) tmpPair.cost);
+                }
+            }
+        }
+
+        throw new GraphExceptions(GraphExceptions.PATH_NOT_FOUND);
     }
 
     @Override
     public double shortestPathWeight(T vertex1, T vertex2) throws BinaryTreeExceptions, GraphExceptions {
+        try {
+            getNode(vertex1);
+        } catch (GraphExceptions ex) {
+            throw new GraphExceptions(GraphExceptions.ELEMENT_NOT_FOUND);
+        }
 
-        return 0;
+        return findLastPairInShortestPair(vertex1, vertex2).cost;
     }
 
     @Override

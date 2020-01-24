@@ -1,6 +1,7 @@
 package Demo;
 
 
+import BinaryTree.BinaryTreeExceptions;
 import Graph.GraphExceptions;
 import Lists.ListExceptions;
 import Network.*;
@@ -10,7 +11,7 @@ import java.util.Iterator;
 
 public class demo {
 
-    public static void tests(int test) throws GraphExceptions, EmptyCollectionException, ListExceptions {
+    public static void tests(int test) throws GraphExceptions, EmptyCollectionException, ListExceptions, BinaryTreeExceptions {
         NetworkADT<Integer> graph;
         Iterator<Integer> itr;
 
@@ -22,53 +23,56 @@ public class demo {
                 graph.addVertex(2);
                 graph.addVertex(3);
                 graph.addVertex(4);
-                graph.addEdge(1, 2 , 3.0);
+                graph.addEdge(1, 2, 3.0);
                 graph.addEdge(2, 4, 4.0);
                 graph.addEdge(2, 2, 5.0);
-                graph.addEdge(1, 1,2.0);
+                graph.addEdge(1, 1, 2.0);
                 graph.addEdge(4, 4, 1.0);
                 graph.addEdge(1, 4, 10.0);
                 System.out.print(graph.toString());
                 break;
-            /*//ShortestPath Not Found Test
+            //ShortestPath Not Found Test
             case 2:
-                graph = new DiGraphInLists<>();
+                graph = new NetworkInList<>();
                 graph.addVertex(1);
                 graph.addVertex(2);
                 graph.addVertex(3);
                 graph.addVertex(4);
-                graph.addEdge(1, 2);
-                graph.addEdge(2, 4);
-                graph.addEdge(2, 2);
-                graph.addEdge(1, 1);
-                graph.addEdge(4, 4);
-                graph.addEdge(1, 4);
+                graph.addEdge(1, 2, 10.0);
+                graph.addEdge(2, 4, 5.0);
+                graph.addEdge(2, 2, 6.0);
+                graph.addEdge(1, 1, 3.0);
+                graph.addEdge(4, 4, 20.0);
+                graph.addEdge(1, 4, 1.0);
                 Iterator itrSP = graph.iteratorShortestPath(1, 3);
                 while (itrSP.hasNext()) {
                     System.out.print("->");
                     System.out.print(itrSP.next());
                 }
-                System.out.println("");
                 break;
             //ShortestPath Found Test
             case 3:
-                graph = new DiGraphInLists<>();
+                graph = new NetworkInList<>();
                 graph.addVertex(1);
                 graph.addVertex(2);
                 graph.addVertex(3);
                 graph.addVertex(4);
-                graph.addEdge(1, 2);
-                graph.addEdge(2, 4);
-                graph.addEdge(2, 2);
-                graph.addEdge(1, 1);
-                graph.addEdge(4, 4);
+                graph.addEdge(1, 3, 15.0);
+                graph.addEdge(1, 2, 15.0);
+                graph.addEdge(1, 1, 7.0);
+                graph.addEdge(2, 4, 5.0);
+                graph.addEdge(2, 2, 6.0);
+                graph.addEdge(3, 4, 15.0);
+                graph.addEdge(4, 4, 14.0);
+                graph.addEdge(4, 3, 20.0);
+                graph.addEdge(4, 2, 20.0);
                 Iterator itrSPFound = graph.iteratorShortestPath(1, 4);
                 while (itrSPFound.hasNext()) {
                     System.out.print("->");
                     System.out.print(itrSPFound.next());
                 }
-                System.out.println("");
-                break;*/
+                System.out.print("\nCusto: " + graph.shortestPathWeight(1, 4) + "\n");
+                break;
             // Remove Test
             case 4:
                 graph = new NetworkInList<>();
@@ -76,7 +80,7 @@ public class demo {
                 graph.addVertex(2);
                 graph.addVertex(3);
                 graph.addVertex(4);
-                graph.addEdge(1, 2 , 7.0);
+                graph.addEdge(1, 2, 7.0);
                 graph.addEdge(2, 4, 5.0);
                 graph.addEdge(2, 2, 4.0);
                 graph.addEdge(1, 1, 10.0);
@@ -174,12 +178,12 @@ public class demo {
 
     }
 
-    public static void main(String[] args) throws GraphExceptions, EmptyCollectionException, ListExceptions {
+    public static void main(String[] args) throws GraphExceptions, EmptyCollectionException, ListExceptions, BinaryTreeExceptions {
         System.out.println("----------------------------------");
         for (int i = 1; i <= 8; ++i) {
             System.out.println("Teste " + i + ": ");
             tests(i);
-            System.out.println("\n----------------------------------");
+            System.out.println("----------------------------------");
         }
     }
 }

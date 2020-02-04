@@ -60,6 +60,7 @@ public class LinkedList<T> {
                     tail = previous;
                 }else {
                     previous.setNext(current.getNext());
+                    current.setNext(null);
                 }
                 this.size--;
                 return current.getData();

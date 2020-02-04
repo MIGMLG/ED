@@ -22,7 +22,7 @@ public class App {
 
         test.printList();
         try {
-            System.out.println("Removido: "+test.remove(trash2));
+            System.out.println("Removido: "+test.remove(trash));
         } catch (Exception ex) {
             System.out.println("Erro: "+ex.getMessage());
         }

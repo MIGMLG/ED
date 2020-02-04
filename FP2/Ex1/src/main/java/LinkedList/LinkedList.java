@@ -52,7 +52,9 @@ public class LinkedList<T> {
                     this.head = null;
                     this.tail = null;
                 }else if(current.getData().equals(head.getData())){
+                    LinkNode<T> currentHead = current;
                     head = head.getNext();
+                    currentHead.setNext(null);
                 }else if(current.getData().equals(tail.getData())){
                     previous.setNext(null);
                     tail = previous;
